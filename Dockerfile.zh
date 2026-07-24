@@ -1,0 +1,12 @@
+FROM opensecurity/mobile-security-framework-mobsf:latest
+
+USER root
+# Install Chinese fonts
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends fonts-noto-cjk && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Copy our Chinese localization files (only the mobsf/ directory for the application code)
+COPY mobsf/ /home/mobsf/Mobile-Security-Framework-MobSF/mobsf/
+
+USER mobsf
