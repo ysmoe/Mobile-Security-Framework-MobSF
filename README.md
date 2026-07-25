@@ -1,121 +1,133 @@
-# Mobile Security Framework (MobSF)
+# 移动应用安全分析平台
 
-![](https://cloud.githubusercontent.com/assets/4301109/20019521/cc61f7fc-a2f2-11e6-95f3-407030d9fdde.png)
+[![Python](https://img.shields.io/badge/python-3.12+-blue.svg?logo=python&labelColor=yellow)](https://www.python.org/downloads/)
+[![平台](https://img.shields.io/badge/平台-macOS%20%7C%20Linux%20%7C%20Windows-green.svg)](#快速开始)
+[![许可证](https://img.shields.io/:license-GPL--3.0--only-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![Docker](https://img.shields.io/docker/pulls/opensecurity/mobile-security-framework-mobsf?style=social)](https://hub.docker.com/r/opensecurity/mobile-security-framework-mobsf/)
 
-Mobile Security Framework (MobSF) is a security research platform for mobile applications in Android, iOS and Windows Mobile. MobSF can be used for a variety of use cases such as mobile application security, penetration testing, malware analysis, and privacy analysis. The Static Analyzer supports popular mobile app binaries like APK, IPA, APPX and source code. Meanwhile, the Dynamic Analyzer supports both Android and iOS applications and offers a platform for interactive instrumented testing, runtime data and network traffic analysis. MobSF seamlessly integrates with your DevSecOps or CI/CD pipeline, facilitated by REST APIs and CLI tools, enhancing your security workflow with ease.
+> 一个面向 Android / iOS 移动应用的**静态分析 + 动态分析**一体化平台,提供完整的中文界面与中文报告输出。
 
-Made with ![Love](https://cloud.githubusercontent.com/assets/4301109/16754758/82e3a63c-4813-11e6-9430-6015d98aeaab.png) in India
+---
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/opensecurity/mobile-security-framework-mobsf?style=social)](https://hub.docker.com/r/opensecurity/mobile-security-framework-mobsf/) [![python](https://img.shields.io/badge/python-3.12+-blue.svg?logo=python&labelColor=yellow)](https://www.python.org/downloads/)
-[![PyPI version](https://badge.fury.io/py/mobsf.svg)](https://badge.fury.io/py/mobsf)
-[![platform](https://img.shields.io/badge/platform-osx%2Flinux%2Fwindows-green.svg)](https://github.com/MobSF/Mobile-Security-Framework-MobSF/)
-[![License](https://img.shields.io/:license-GPL--3.0--only-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
-[![MobSF tests](https://github.com/MobSF/Mobile-Security-Framework-MobSF/workflows/MobSF%20tests/badge.svg?branch=master)](https://github.com/MobSF/Mobile-Security-Framework-MobSF/actions)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MobSF_Mobile-Security-Framework-MobSF&metric=alert_status)](https://sonarcloud.io/dashboard?id=MobSF_Mobile-Security-Framework-MobSF)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/MobSF/Mobile-Security-Framework-MobSF)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6392/badge)](https://bestpractices.coreinfrastructure.org/projects/6392)
+## 项目简介
 
+本项目对**开源移动安全分析工具**进行整合与改造,聚焦以下目标:
 
-[![ToolsWatch Best Security Tools 2016](https://img.shields.io/badge/ToolsWatch-Rank%205%20%7C%20Year%202016-red.svg)](http://www.toolswatch.org/2017/02/2016-top-security-tools-as-voted-by-toolswatch-org-readers/)
-[![ToolsWatch Best Security Tools 2017](https://img.shields.io/badge/ToolsWatch-Rank%209%20%7C%20Year%202017-red.svg)](http://www.toolswatch.org/2018/01/black-hat-arsenal-top-10-security-tools/)
-[![Blackhat Arsenal Asia 2015](https://img.shields.io/badge/Black%20Hat%20Arsenal-Asia%202015-blue.svg)](https://www.blackhat.com/asia-15/arsenal.html#yso-mobile-security-framework)
-[![Blackhat Arsenal Asia 2018](https://img.shields.io/badge/Black%20Hat%20Arsenal-Asia%202018-blue.svg)](https://www.blackhat.com/asia-18/arsenal.html#mobile-security-framework-mobsf)
-[![Blackhat Arsenal Europe 2023](https://img.shields.io/badge/Black%20Hat%20Arsenal-Europe%202023-blue.svg)](https://www.blackhat.com/eu-23/arsenal/schedule/index.html#mobile-security-framework---mobsf-35327)
+- **移动应用安全分析**:支持 Android(APK / 源码)、iOS(IPA / 源码)、Windows Mobile(APPX)等主流移动应用格式
+- **多场景适用**:应用安全评估、渗透测试支撑、恶意样本分析、隐私合规检查
+- **DevSecOps 友好**:内置 REST API 与命令行工具,可与 CI/CD 流水线无缝衔接
+- **简体中文优先**:从界面、规则库、报告到错误消息,**全链路中文输出**,降低中文用户的使用与协作成本
 
+### 与上游相比的差异
 
-MobSF is also bundled with [Android Tamer](https://tamerplatform.com), [BlackArch](https://blackarch.org/mobile.html) and [Pentoo](https://www.pentoo.ch/).
+- **全中文界面** —— Django i18n 框架改造,支持中英文切换,默认简体中文
+- **全中文报告** —— PDF 报告模板、安全规则说明、错误消息均完成本地化
+- **可编辑 Word 报告** —— 在 PDF 之外提供 `.docx` 格式报告,便于审计、批注、二次加工
+- **开箱即用的 CJK 字体** —— Docker 镜像内置 Noto CJK 字体,中文字符在报告中正确显示
 
-### Support MobSF
+---
 
-[![Donate to MobSF](https://user-images.githubusercontent.com/4301109/117404264-7aab5480-aebe-11eb-9cbd-da82d7346bb3.png)](https://opensecurity.in/donate)
+## 快速开始
 
+### 方式一:Docker(推荐)
 
-> Has MobSF made a difference for you? Show your support and help us innovate with a donation. It's easy to build open source, maintaining one is a different story. 
-
-*Long live open source!*
-
-## Documentation
-
-Quick setup with docker
-
-```
+```bash
+# 拉取镜像
 docker pull opensecurity/mobile-security-framework-mobsf:latest
+
+# 启动服务,默认监听 8000 端口
 docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
 
-# Default username and password: mobsf/mobsf
+# 默认账号:mobsf / mobsf
+# 启动后访问 http://127.0.0.1:8000
 ```
 
-[![See MobSF Documentation](https://user-images.githubusercontent.com/4301109/70686099-3855f780-1c79-11ea-8141-899e39459da2.png)](https://mobsf.github.io/docs)
+启动后访问 [http://127.0.0.1:8000](http://127.0.0.1:8000),使用默认账号登录即可。
 
-* Try MobSF Static Analyzer Online: [mobsf.live](https://mobsf.live)
-* MobSF in CI/CD: [mobsfscan](https://github.com/MobSF/mobsfscan)
-* Conference Presentations: [Slides & Videos](https://mobsf.github.io/Mobile-Security-Framework-MobSF/presentations.html)
-* MobSF Online Course: [OpSecX MAS](https://opsecx.com/index.php/product/automated-mobile-application-security-assessment-with-mobsf/)
-* What's New: [See Changelog](https://mobsf.github.io/Mobile-Security-Framework-MobSF/changelog.html)
+### 方式二:本地源码
 
-## Collaborators
+```bash
+# 克隆仓库
+git clone <repository-url> mobile-app-security-analyzer
+cd mobile-app-security-analyzer
 
-[Ajin Abraham](https://in.linkedin.com/in/ajinabraham) ![india](https://user-images.githubusercontent.com/4301109/37564171-6549d678-2ab6-11e8-9b9d-21327c7f5d5b.png)  | [Magaofei](https://github.com/magaofei) ![china](https://user-images.githubusercontent.com/4301109/44515364-00bbe880-a6e0-11e8-944d-5b48a86427da.png) | [Matan Dobrushin](https://github.com/matandobr) ![israel](https://user-images.githubusercontent.com/4301109/37564177-782f1758-2ab6-11e8-91e5-c76bde37b330.png) | [Vincent Nadal](https://github.com/superpoussin22) ![france](https://user-images.githubusercontent.com/4301109/37564175-71d6d92c-2ab6-11e8-89d7-d21f5aa0bda8.png)
+# 运行安装脚本(macOS / Linux)
+./setup.sh
 
-## e-Learning Courses & Certifications
-![MobSF Course](https://user-images.githubusercontent.com/4301109/76344880-ad68b580-62d8-11ea-8cde-9e3475fc92f6.png) [Automated Mobile Application Security Assessment with MobSF -MAS](https://opsecx.com/index.php/product/automated-mobile-application-security-assessment-with-mobsf/)
+# 启动开发服务器
+./run.sh
 
-![Android Security Tools Course](https://user-images.githubusercontent.com/4301109/76344939-c709fd00-62d8-11ea-8208-774f1d5a7c52.png) [Android Security Tools Expert -ATX](https://opsecx.com/index.php/product/android-security-tools-expert-atx/)
+# Windows 用户请使用 setup.bat / run.bat
+```
 
-## MobSF Support
+环境要求:**Python 3.12+**,需安装 `wkhtmltopdf` 用于 PDF 报告生成,以及 Noto CJK / PingFang SC 等中文字体。
 
-* **Free Support:** Free limited support, questions, help and discussions, join our Slack channel [![Join_MobSF_Slack](https://img.shields.io/badge/mobsf%20slack-join-green?logo=slack&labelColor=4A154B)](https://join.slack.com/t/mobsf/shared_invite/zt-3ephptj6c-OuDMatJ9z9MT0T_Vb~l2pg)
-* **Enterprise Support:** Priority feature requests, live support & onsite training, see [![MobSF Support Packages](https://img.shields.io/badge/enterprise-support%20package-blue?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGMAAABaCAMAAACbkBjCAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAkNQTFRFAAAA////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////o1yoNQAAAMF0Uk5TAAQ1YH6IXzYFAUqq9P/1rU4CPdHWQ4X+jgOkro+hVWYR6vIajJvz+XN/z9sjLW6lrNPX+PsGHyE5TE9XWV1hW0k6LC7hs7SEhgr2sGRiFBCXJf38sgwOtmpoIiDf68vSGS+Z9yeR70RNvUEVfOa/WgdCR8XuUeeA8Du7Vporrx66SwlcqWV92g2HY+2Ki/GQJjxpM8TVcIGodjJ3ybETJOjUyiop4sxYkkVSGJ/pD6cdwlTOHNnIZ+B13bXkKL7NMOC0/xQAAAPPSURBVHic7dn5PxVRFADwY0sPN0t4Uj0vLQq9lkelRVFRKklZs+RRiiTtSbRoD9GuhdK+Ky3S9qf1Zu68bczcO5rjhz4f5yfnOud9mTszd+Y+gLH4f8PL28fXz893nP/4UQIMAYFBRIoJwSGho0CETSQeER6BLYRGGoksjFGTcIlouSDEZNRpmaJEEDIVkTApE4TEoBHmaWpG7HQsY4YaQchMJMI8S92IQ/pHZqsThMzBMeJZRgIKkcgiCJmLYcSwDQuGMY9tzMcwFrCNhQiEl5VtJCXrNxaxCUIW6zf8ecYS/UYKz1iq31jGM5brN1bwDB/9RirPQFhDuMdqpX5jFc9I0W+k8Yww/UY6z1it3zDzDLN+A9awiTUIBKxlGxkYRibbWIdhLGUbCLcrgPUTWETWegyDPSEbUAjYyDI24RjZWepE7GYcA3LUjSlIBGzJVSO2JmIZsG2UZ1wI1TUEYZ11RJ7KrFvz8Qy1S6QAkYBCZaMI0yhWNrZjGlCiRJSiElCmZJSPGWOGrtiheKFjGhW2yiVVO+XL+i6bz9pqHCB09x77B9YA1O6tcwHGffX7oYGQsnr9+2R5MeHiZx4QkmTTQSocsqUL+WHh5yNHs3UJxVHHpL87RBo5HphkbDwhvS770N9lNZ38Z6Gm2bXGmpyjLa7l1eI8cqdO/8tW7JmNHnutZ6XhtJzA1nOOx7bzbgUXLBdHKLRcKvU8iS4Lo2YL3de4cpXe1Ns8Sto7ro1A6AxMkl8KXQDXbc5tapLbuNsA0CSvumHy0gTkF96Ut9rjFtyWjRwFuDO8ruRuLVfoblLePLwH4bKRmwAFSpXW6E4WYC66rwjYw3fYY8MDgIMqxeWWh8qAobq1Uk0gJBJ6ej0GensAHqmWW1urDQoH6bE6YI82gD53pPeJvecpq+OZt5x4ztkJewEeSG+f0NTObIlL9SReDjtZZWEDd4QSoaqP2jRyX7kTr49wCPJGrKuqE5O34h0R3vGaYqvcjAxeNXlPC+k7biZNPnC7+l1EA7eYBNPKVjG5QxPuLgchH51GP79YetP/JCbxNDnOb5voIE7ya0kjvYboTSCInvsBGvocG5odGmrpkR2QsgF6vmvos0nGZw21X8TKCClrELOvGvq+UYK7SSwEnYIiKesSs0EtjXSl6dZSGi6WOr5ei3I7kTnRrd34LpYOSdmQmL1ANn6IpQlSRr+8mYpsiK9MyY672lbx4acZ2WgXKp84059C+gvZsAqVrt0ycWPsN7JhNHicrIPus6PBMJu0hPAcWOHM/giNKVr6zDAWI4i/nmw15nhs85kAAAAASUVORK5CYII=)](https://opensecurity.in/#support)
+---
 
+## 功能特性
 
-## Contribution, Feature Requests & Bugs
+### 静态分析
 
-* Read [CONTRIBUTING.md](https://github.com/MobSF/Mobile-Security-Framework-MobSF/blob/master/.github/CONTRIBUTING.md) before opening bugs, feature requests and pull request.
-* For Project updates and announcements, follow [@ajinabraham](https://twitter.com/ajinabraham) or [@OpenSecurity_IN](https://twitter.com/OpenSecurity_IN).
-* Github Issues are only for tracking bugs and feature requests. Do not post support or help queries there. We have a slack channel for that.
+- **Android**:APK 反编译、清单分析、代码扫描、权限审计、证书与签名校验
+- **iOS**:IPA 解包、Plist 分析、Swift / Objective-C 规则扫描
+- **Windows Mobile**:APPX 静态分析
+- **源码扫描**:支持直接上传 ZIP 源码包进行分析
 
-### Static Analysis - Android
+### 动态分析
 
-![mobsf_android_static_analysis](https://user-images.githubusercontent.com/4301109/95506503-f9b6c980-097d-11eb-803a-f88321e1feb7.gif)
+- **Android 动态分析**:运行时行为监控、网络流量捕获、API 调用拦截
+- **iOS 动态分析**:针对 IPA 的运行时插桩测试
+- **Frida 集成**:支持基于 Frida 的 Hook 与插桩脚本
 
-### Static Analysis - iOS
+### 报告输出
 
-![mobsf_ios_ipa_static_analysis](https://user-images.githubusercontent.com/4301109/95507865-16540100-0980-11eb-9e4d-887668d46969.gif)
+- **PDF 报告** —— 中文化的安全评估报告,含严重程度着色、风险评分卡
+- **Word(.docx)报告** —— 同一份数据生成可编辑 Word 文档,便于在审计流程中批注、流转
+  - 表格保留严重程度颜色(危险 / 警告 / 提示 / 良好)
+  - 标题层级、列表、水平线、图片完整保留
+  - 文档元数据(标题、作者、主题)从扫描上下文自动填充
 
-### Dynamic Analysis - Android APK
+### REST API 与 CLI
 
-![mobsf_android_dynamic_analysis](https://user-images.githubusercontent.com/4301109/95514697-5e782100-098a-11eb-8390-47bb3822a2d7.gif)
+通过 REST API 与命令行工具,可在 CI/CD 流水线中触发扫描、获取结果:
 
-### Web API Viewer
+- `POST /api/v1/upload` —— 上传应用
+- `POST /api/v1/scan` —— 触发扫描
+- `POST /api/v1/download_pdf` —— 下载 PDF 报告
+- `POST /api/v1/download_docx` —— 下载 Word 报告
 
-![mobsf_web_api_fuzzing_with_burp](https://user-images.githubusercontent.com/4301109/95516560-69808080-098d-11eb-9e0b-fb5a25e96585.gif)
+详细接口定义参见 Web 界面内的 "API" 页面。
 
-### Dynamic Analysis - iOS IPA
+---
 
-![mobsf_ios_dynamic_analysis](https://github.com/MobSF/Mobile-Security-Framework-MobSF/assets/4301109/34014c4d-1535-48ad-9944-a4b1b728a030)
+## 文档与资源
 
-## Past Collaborators
+- **使用文档**:启动后访问 Web 界面右上角"文档"链接
+- **迁移说明**:`MIGRATION.md` 记录了与上游的差异以及本地化变更清单
+- **更新日志**:`CHANGELOG.md`
 
-* [Dominik Schlecht](https://github.com/sn0b4ll) ![germany](https://user-images.githubusercontent.com/4301109/37564176-743238ba-2ab6-11e8-9666-5d98f0a1d127.png)
+---
 
-## Honorable Contributors & Shoutouts
+## 参与贡献
 
-* Amrutha VC - For the new MobSF logo
-* Dominik Schlecht - For the awesome work on adding Windows Phone App Static Analysis to MobSF
-* Esteban - Better Android Manifest Analysis and Static Analysis Improvement.
-* Matan Dobrushin - For adding Android ARM Emulator support to MobSF - Special thanks goes for cuckoo-droid
-* Shuxin - Android Binary Analysis
-* Abhinav Saxena - (@xandfury) - For Travis CI and Logging integration
-* ![netguru](https://user-images.githubusercontent.com/4301109/76340877-a3dc4f00-62d2-11ea-8631-b4cc8d9e42ed.png) [Netguru](https://www.netguru.com/) (@karolpiateknet, @mtbrzeski) - For iOS Swift support, Rule contributions and SAST refactoring.
-* Maxime Fawe - (@Arenash13) - For Matching Strategy implementation of SAST pattern matching algorithms.
-* Abhinav Sejpal (@Abhinav_Sejpal) - For poking me with bugs, feature requests, and UI & UX suggestions
-* Anant Srivastava (@anantshri) - For Activity Tester Idea
-* Anto Joseph (@antojoseph) - For the help with SuperSU
-* Bharadwaj Machiraju (@tunnelshade) - For writing pyWebProxy from scratch
-* Rahul (@c0dist) - Kali Support
-* MindMac - For writing Android Blue Pill
-* Oscar Alfonso Diaz - (@OscarAkaElvis) - For Dockerfile contributions
-* Thomas Abraham - For JS Hacks on UI
-* Tim Brown (@timb_machine) - For the iOS Binary Analysis Ruleset
-* Shanil Prasad (@Rajuraju14) - For improving iOS ATS Analysis
-* Jovan Petrovic (@JovanPetrovic) - For sponsoring a server to host mobsf.live
+欢迎通过 Issue 反馈问题、提交功能建议或发起 Pull Request。
+
+提交前请:
+
+1. 阅读 `AGENTS.md` 了解项目规范与安全要求
+2. 运行 `tox -e lint` 确保代码通过 lint 检查
+3. 对涉及安全的修改,补充相应的测试用例
+
+> **安全提示**:本项目处理的全部输入(APK / ZIP / IPA / 清单)均来自已认证但**潜在恶意**的用户。任何路径处理、命令执行、模板渲染都必须按攻击者可控输入对待,不可信任。
+
+---
+
+## 许可证
+
+本项目以 **GPL-3.0-only** 许可证发布。完整条款参见仓库根目录的 `LICENSE` 文件。
+
+---
+
+## 致谢
+
+本项目参考了开源社区的 [Mobile Security Framework (MobSF)](https://github.com/MobSF/Mobile-Security-Framework-MobSF) 项目,在此向原作者与社区贡献者致以诚挚的感谢。
