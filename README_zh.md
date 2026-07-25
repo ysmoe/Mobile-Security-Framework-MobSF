@@ -116,6 +116,69 @@ git fetch upstream
 git merge upstream/master
 ```
 
+## Word (.docx) 报告导出
+
+除了原本的 PDF 报告，本地化版本还支持直接生成可编辑的 Word (.docx) 报告。
+
+### 入口
+
+- **Web 端**：在任一扫描详情页（如 `/static_analyzer/<md5>/`）的左侧导航栏，"PDF 报告"按钮下方有"Word 报告"按钮
+- **扫描列表**：在 `/recent_scans/` 页面每条记录旁边有绿色 Word 按钮
+- **REST API**：`POST /api/v1/download_docx`，参数 `hash=<md5>`
+
+### 浏览器手动下载
+
+```
+http://127.0.0.1:8000/download_docx/db8506bfe28c1339a6cad91618fbc9ed/
+```
+
+### curl 命令
+
+```bash
+# 设置环境变量
+API_KEY="<your-mobsf-api-key>"
+MD5="db8506bfe28c1339a6cad91618fbc9ed"
+
+# 下载 DOCX (Microsoft Word 格式)
+curl -X POST http://127.0.0.1:8000/api/v1/download_docx \
+  -d "hash=$MD5" \
+  -H "Authorization: $API_KEY" \
+  -o report.docx
+```
+
+### 实现原理
+
+- 在 PDF 模板渲染的 HTML 字符串上，**同一个 `template.render(context)` 数据**走两条分支：
+  - 原路：HTML → wkhtmltopdf → PDF
+  - 新路：HTML → BeautifulSoup → python-docx → DOCX
+- 不重写模板、不重写数据组装逻辑、不引入 LibreOffice
+- 文档元数据（标题、作者、主题、描述）从扫描 context 提取，写入 docx core properties
+
+### DOCX 内容
+
+- 中文字体：Noto Sans CJK SC（Docker 镜像已装 `fonts-noto-cjk`）
+- 标题层级：h1-h6 → Heading 1-4
+- 段落、列表（ul/ol）、水平线（hr）
+- 表格：保留表头、Bootstrap 严重程度颜色映射到单元格背景色
+  - `danger` → 浅红 `#F8D7DA`
+  - `warning` → 浅黄 `#FFF3CD`
+  - `info` → 浅蓝 `#D1ECF1`
+  - `success` → 浅绿 `#D4EDDA`
+- 图片：`file://` / `data:image/png;base64` / 相对路径自动内嵌
+
+### 依赖
+
+- `python-docx>=1.1.0`（已写入 `Dockerfile.zh`）
+- `lxml>=4.9.0`（python-docx 间接依赖）
+
+### Python API
+
+```python
+from mobsf.StaticAnalyzer.views.common.docx import html_to_docx
+doc = html_to_docx(html_string, context=context_dict)
+doc.save("report.docx")
+```
+
 ## 许可证
 
 与 MobSF 保持一致，遵循相同的开源许可证。

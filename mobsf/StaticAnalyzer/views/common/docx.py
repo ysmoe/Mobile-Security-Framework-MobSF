@@ -184,9 +184,29 @@ def _set_run_font(run, size=11, bold=False, color=None):
         run.font.color.rgb = RGBColor(*color)
 
 
-def _bootstrap_document():
-    """Create a Document with a sensible default style for CJK rendering."""
+def _bootstrap_document(context=None):
+    """Create a Document with a sensible default style for CJK rendering.
+
+    If a Django-style context dict is supplied, the document's core
+    properties (title, author, subject, description) are populated so the
+    .docx file shows meaningful metadata in Word's File -> Info panel.
+    """
     doc = Document()
+    if context:
+        cp = doc.core_properties
+        if context.get('app_name'):
+            cp.title = f'MobSF 静态分析报告 - {context["app_name"]}'
+        else:
+            cp.title = 'MobSF 静态分析报告'
+        cp.author = 'MobSF (Mobile Security Framework)'
+        cp.subject = context.get('file_name', 'APK 静态分析')
+        if context.get('file_name'):
+            cp.comments = (
+                f'由 MobSF 生成的 {context["file_name"]} '
+                f'安全分析报告 (DOCX)')
+        else:
+            cp.comments = '由 MobSF 生成的移动应用安全分析报告 (DOCX)'
+        cp.last_modified_by = 'MobSF Chinese Localized Build'
     style = doc.styles['Normal']
     style.font.name = CHINESE_FONT
     style.font.size = Pt(11)
@@ -349,7 +369,9 @@ def _add_table(doc, soup_node):
     table = doc.add_table(rows=len(data), cols=n_cols)
     table.style = 'Light Grid Accent 1'
     table.autofit = True
+    # Reuse the already-fetched <tr> nodes for class lookups
     for r_idx, row_cells in enumerate(data):
+        tr_class = _class_color(rows[r_idx])
         for c_idx in range(n_cols):
             cell = table.cell(r_idx, c_idx)
             cell.vertical_alignment = WD_ALIGN_VERTICAL.TOP
@@ -362,11 +384,36 @@ def _add_table(doc, soup_node):
             if cell_html is None:
                 continue
             is_header = (r_idx == 0 and has_header) or cell_html.name == 'th'
-            color = _class_color(cell_html)
-            _emit_inline(cell.paragraphs[0], cell_html, color=color)
+            # Cell-level color wins over row-level
+            cell_color = _class_color(cell_html) or tr_class
+            _emit_inline(cell.paragraphs[0], cell_html, color=cell_color)
             if is_header:
+                # Header row: bold, light background
                 for run in cell.paragraphs[0].runs:
-                    _set_run_font(run, size=11, bold=True, color=color)
+                    _set_run_font(run, size=11, bold=True, color=(0xFF, 0xFF, 0xFF))
+                _shade_cell(cell, '1F4E79')  # dark blue
+            elif cell_color is not None:
+                # Severity-tinted cell: shade background
+                bg = {
+                    (0xC0, 0x39, 0x2B): 'F8D7DA',  # danger -> light red
+                    (0xE6, 0x9D, 0x00): 'FFF3CD',  # warning -> light amber
+                    (0x29, 0x80, 0xB9): 'D1ECF1',  # info -> light blue
+                    (0x18, 0x9A, 0x4B): 'D4EDDA',  # success -> light green
+                }.get(cell_color)
+                if bg:
+                    _shade_cell(cell, bg)
+
+
+def _shade_cell(cell, hex_color):
+    """Apply a background colour (hex without #) to a docx cell."""
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn as _qn
+    tcPr = cell._tc.get_or_add_tcPr()
+    shd = OxmlElement('w:shd')
+    shd.set(_qn('w:val'), 'clear')
+    shd.set(_qn('w:color'), 'auto')
+    shd.set(_qn('w:fill'), hex_color)
+    tcPr.append(shd)
 
 
 def _add_image_block(doc, img_tag):
@@ -450,7 +497,7 @@ def html_to_docx(html_str, context=None):
             f'python-docx is not installed: {IMPORT_ERROR}')
     soup = BeautifulSoup(html_str, 'html.parser')
 
-    doc = _bootstrap_document()
+    doc = _bootstrap_document(context=context)
     body = soup.body or soup
     _walk(doc, body)
     return doc
