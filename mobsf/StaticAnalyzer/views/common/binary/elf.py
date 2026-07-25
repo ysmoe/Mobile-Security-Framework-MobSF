@@ -137,10 +137,10 @@ class ELFChecksec:
             severity = INFO
             desc = (
                 'This shared object has full RELRO '
-                'enabled. RELRO ensures that the GOT cannot be '
-                'overwritten in vulnerable ELF binaries. '
-                'In Full RELRO, the entire GOT (.got and '
-                '.got.plt both) is marked as read-only.')
+                '该共享对象已启用完整 RELRO。RELRO 确保'
+                'GOT 在存在漏洞的 ELF 二进制中无法被覆盖。'
+                '在完整 RELRO 中，整个 GOT（.got 和'
+                '.got.plt）都被标记为只读。')
         elif relro == PARTIAL_RELRO:
             severity = WARNING
             desc = (
@@ -154,13 +154,13 @@ class ELFChecksec:
         else:
             severity = HIGH
             desc = (
-                'This shared object does not have RELRO '
-                'enabled. The entire GOT (.got and '
-                '.got.plt both) are writable. Without this compiler '
-                'flag, buffer overflows on a global variable can '
-                'overwrite GOT entries. Use the option '
-                '-z,relro,-z,now to enable full RELRO and only '
-                '-z,relro to enable partial RELRO.')
+                '该共享对象未启用 RELRO。'
+                '整个 GOT（.got 和 '
+                '.got.plt）都可写。如果没有此编译器'
+                '标志，全局变量上的缓冲区溢出可以'
+                '覆盖 GOT 条目。使用选项'
+                '-z,relro,-z,now 启用完整 RELRO，'
+                '使用 -z,relro 启用部分 RELRO。')
         elf_dict['relocation_readonly'] = {
             'relro': relro,
             'severity': severity,
@@ -170,19 +170,18 @@ class ELFChecksec:
         if rpath:
             severity = HIGH
             desc = (
-                'The binary has RPATH set. In certain cases, '
-                'an attacker can abuse this feature to run arbitrary '
-                'libraries for code execution and privilege '
-                'escalation. The only time a library should '
-                'set RPATH is when it is linked to private '
-                'libraries in the same package. Remove the '
-                'compiler option -rpath to remove RPATH.')
+                '该二进制文件设置了 RPATH。在某些情况下，'
+                '攻击者可能滥用此功能运行任意'
+                '库，从而实现代码执行和权限'
+                '提升。库应仅在链接到同一包中的'
+                '私有库时设置 RPATH。'
+                '删除编译器选项 -rpath 以移除 RPATH。')
             rpt = rpath.rpath
         else:
             severity = INFO
             desc = (
-                'The binary does not have run-time search path '
-                'or RPATH set.')
+                '该二进制文件未设置运行时搜索路径'
+                '或 RPATH。')
             rpt = rpath
         elf_dict['rpath'] = {
             'rpath': rpt,
@@ -193,14 +192,13 @@ class ELFChecksec:
         if runpath:
             severity = HIGH
             desc = (
-                'The binary has RUNPATH set. In certain cases, '
-                'an attacker can abuse this feature and or modify '
-                'environment variables to run arbitrary '
-                'libraries for code execution and privilege '
-                'escalation. The only time a library should '
-                'set RUNPATH is when it is linked to private '
-                'libraries in the same package. Remove the compiler '
-                'option --enable-new-dtags,-rpath to remove RUNPATH.')
+                '该二进制文件设置了 RUNPATH。在某些情况下，'
+                '攻击者可能滥用此功能或修改'
+                '环境变量来运行任意'
+                '库，从而实现代码执行和权限'
+                '提升。库应仅在链接到同一包中的'
+                '私有库时设置 RUNPATH。删除编译器'
+                '选项 --enable-new-dtags,-rpath 以移除 RUNPATH。')
             rnp = runpath.runpath
         else:
             severity = INFO
@@ -222,14 +220,14 @@ class ELFChecksec:
                 severity = INFO
             else:
                 severity = WARNING
-            desc = ('The binary does not have any '
-                    'fortified functions. Fortified functions '
-                    'provides buffer overflow checks against '
-                    'glibc\'s commons insecure functions like '
-                    'strcpy, gets etc. Use the compiler option '
-                    '-D_FORTIFY_SOURCE=2 to fortify functions. '
-                    'This check is not applicable for '
-                    'Dart/Flutter libraries.')
+            desc = ('该二进制文件没有任何'
+                    '强化函数。强化函数'
+                    '提供针对 glibc 常见不安全函数'
+                    '（如 strcpy、gets 等）'
+                    '的缓冲区溢出检查。使用编译器选项'
+                    '-D_FORTIFY_SOURCE=2 来强化函数。'
+                    '此检查不适用于'
+                    'Dart/Flutter 库。')
         elf_dict['fortify'] = {
             'is_fortified': bool(fortified_functions),
             'severity': severity,

@@ -337,15 +337,14 @@ def cert_info(app_dic, man_dict):
             summary[INFO] += 1
             findings.append((
                 INFO,
-                'Application is signed with a code '
-                'signing certificate',
+                '应用已使用代码签名证书进行签名',
                 '已签名应用'))
         else:
             summary[HIGH] += 1
             findings.append((
                 HIGH,
-                'Code signing certificate not found',
-                'Missing Code Signing certificate'))
+                '未找到代码签名证书',
+                '缺失代码签名证书'))
 
         if man_dict['min_sdk']:
             api_level = int(man_dict['min_sdk'])
@@ -367,34 +366,31 @@ def cert_info(app_dic, man_dict):
                 status,
                 '应用使用 v1 签名方案进行签名，'
                 '在 Android 5.0-8.0 上容易受到 Janus 漏洞攻击，'
-                '如果仅使用 v1 签名进行签名'
-                ' scheme. Applications running on Android 5.0-7.0'
-                ' signed with v1, and v2/v3 '
-                'scheme is also vulnerable.',
-                'Application vulnerable to Janus Vulnerability'))
+                '如果仅使用 v1 签名进行签名。'
+                '运行在 Android 5.0-7.0 上的应用使用 v1 签名，'
+                '且 v2/v3 方案也存在漏洞。',
+                '应用易受 Janus 漏洞攻击'))
         if re.findall(r'CN=Android Debug', cert_data['cert_data']):
             summary[HIGH] += 1
             findings.append((
                 HIGH,
-                'Application signed with a debug certificate. '
-                'Production application must not be shipped '
-                'with a debug certificate.',
-                'Application signed with debug certificate'))
+                '应用使用调试证书进行签名。'
+                '正式应用不得使用调试证书发布。',
+                '应用使用调试证书签名'))
         if re.findall(r'哈希算法：sha1', cert_data['cert_data']):
             status = HIGH
             summary[HIGH] += 1
             desc = (
-                'Application is signed with SHA1withRSA. '
-                'SHA1 hash algorithm is known to have '
-                'collision issues.')
+                '应用使用 SHA1withRSA 签名。'
+                'SHA1 哈希算法已知存在'
+                '碰撞问题。')
             title = '证书算法易受哈希碰撞攻击'
             if sha256_digest:
                 status = WARNING
                 summary[HIGH] -= 1
                 summary[WARNING] += 1
                 desc += (
-                    ' The manifest file indicates SHA256withRSA'
-                    ' is in use.')
+                    ' 清单文件表明 SHA256withRSA 正在使用。')
                 title = ('证书算法可能 '
                          '易受哈希碰撞攻击')
             findings.append((status, desc, title))
@@ -402,9 +398,9 @@ def cert_info(app_dic, man_dict):
             status = HIGH
             summary[HIGH] += 1
             desc = (
-                'Application is signed with MD5. '
-                'MD5 hash algorithm is known to have '
-                'collision issues.')
+                '应用使用 MD5 签名。'
+                'MD5 哈希算法已知存在'
+                '碰撞问题。')
             title = '证书算法易受哈希碰撞攻击'
             findings.append((status, desc, title))
         return {
