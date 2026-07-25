@@ -196,10 +196,10 @@ class MachOChecksec:
         }
         if has_code_signature:
             severity = 'info'
-            desc = 'This binary has a code signature.'
+            desc = '此二进制文件具有代码签名。'
         else:
             severity = 'warning'
-            desc = 'This binary does not have a code signature.'
+            desc = '此二进制文件没有代码签名。'
         macho_dict['code_signature'] = {
             'has_code_signature': has_code_signature,
             'severity': severity,
@@ -207,10 +207,10 @@ class MachOChecksec:
         }
         if is_encrypted:
             severity = 'info'
-            desc = 'This binary is encrypted.'
+            desc = '此二进制文件已加密。'
         else:
             severity = 'warning'
-            desc = 'This binary is not encrypted.'
+            desc = '此二进制文件未加密。'
         macho_dict['encrypted'] = {
             'is_encrypted': is_encrypted,
             'severity': severity,
@@ -218,11 +218,11 @@ class MachOChecksec:
         }
         if is_stripped:
             severity = 'info'
-            desc = 'Debug Symbols are stripped'
+            desc = '调试符号已被剥离'
         else:
             severity = 'warning'
             desc = (
-                'Debug Symbols are available. To strip '
+                'Debug 符号可用。 To strip '
                 'debugging symbols, set Strip Debug '
                 'Symbols During Copy to YES, '
                 'Deployment Postprocessing to YES, '

@@ -1384,7 +1384,7 @@
                  {% if details|key:"ofac" == True %}
                   <tr><td>{{domain}}</td>
                   <td>
-                    <strong>IP: </strong>{{details|key:"geolocation"|key:"ip"}}  <br/>
+                    <strong>IP 地址：</strong>{{details|key:"geolocation"|key:"ip"}}  <br/>
                     <strong>国家: </strong>{{details|key:"geolocation"|key:"country_long"}} <br/>
                     <strong>地区: </strong>{{details|key:"geolocation"|key:"region"}} <br/>
                     <strong>城市: </strong>{{details|key:"geolocation"|key:"city"}} <br/>
@@ -1433,7 +1433,7 @@
                     <span class="badge bg-danger">恶意软件</span><br/>
                       <pre>
                       <strong>URL: </strong>{{details|key:"domain_or_url"}}
-                      <strong>IP: </strong><span class="badge bg-danger">{{details|key:"ip"}}</span>
+                      <strong>IP 地址：</strong><span class="badge bg-danger">{{details|key:"ip"}}</span>
                       <strong>描述: </strong>{{details|key:"desc"}}
                       </pre>
                   {% else %}
@@ -1442,7 +1442,7 @@
                   </td>
                   <td>
                     {% if details|key:"geolocation" %}
-                      <strong>IP: </strong>{{details|key:"geolocation"|key:"ip"}}  <br/>
+                      <strong>IP 地址：</strong>{{details|key:"geolocation"|key:"ip"}}  <br/>
                       <strong>国家: </strong>{{details|key:"geolocation"|key:"country_long"}} <br/>
                       <strong>地区: </strong>{{details|key:"geolocation"|key:"region"}} <br/>
                       <strong>城市: </strong>{{details|key:"geolocation"|key:"city"}} <br/>

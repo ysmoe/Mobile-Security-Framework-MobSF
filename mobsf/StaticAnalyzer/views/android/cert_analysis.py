@@ -66,10 +66,10 @@ def get_hardcoded_cert_keystore(app_dic):
             if ext in ('.jks', '.bks'):
                 key_store.append(escape(file_name))
         if certz:
-            desc = 'Certificate/Key files hardcoded inside the app.'
+            desc = '证书/密钥文件硬编码在应用内。'
             findings.append({'finding': desc, 'files': certz})
         if key_store:
-            desc = 'Hardcoded Keystore found.'
+            desc = '发现硬编码的密钥库。'
             findings.append({'finding': desc, 'files': key_store})
         app_dic['file_analysis'] = findings
     except Exception as exp:
@@ -387,7 +387,7 @@ def cert_info(app_dic, man_dict):
                 'Application is signed with SHA1withRSA. '
                 'SHA1 hash algorithm is known to have '
                 'collision issues.')
-            title = 'Certificate algorithm vulnerable to hash collision'
+            title = '证书算法易受哈希碰撞攻击'
             if sha256_digest:
                 status = WARNING
                 summary[HIGH] -= 1
@@ -405,7 +405,7 @@ def cert_info(app_dic, man_dict):
                 'Application is signed with MD5. '
                 'MD5 hash algorithm is known to have '
                 'collision issues.')
-            title = 'Certificate algorithm vulnerable to hash collision'
+            title = '证书算法易受哈希碰撞攻击'
             findings.append((status, desc, title))
         return {
             'certificate_info': cert_data['cert_data'],

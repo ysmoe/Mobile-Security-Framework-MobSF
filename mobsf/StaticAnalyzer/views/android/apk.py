@@ -128,7 +128,7 @@ def print_scan_subject(app_dic, man_data):
         subject = pkg_name
     elif app_name:
         subject = app_name
-    msg = f'Performing Static Analysis on: {subject}'
+    msg = f'正在对以下应用执行静态分析：{subject}'
     logger.info(msg)
     append_scan_status(checksum, msg)
     if subject == 'Failed':

@@ -126,7 +126,7 @@ def static_analyzer(request, checksum, api=False):
             append_scan_status(checksum, err)
             raise Exception(err)
     except Exception as exp:
-        errmsg = 'Error Performing Static Analysis'
+        errmsg = '执行静态分析时出错'
         logger.exception(errmsg)
         exp = exp.__doc__
         append_scan_status(checksum, errmsg, repr(exp))

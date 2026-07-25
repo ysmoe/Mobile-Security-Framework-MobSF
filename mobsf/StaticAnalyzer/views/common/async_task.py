@@ -41,7 +41,7 @@ def detect_timeout(sender, task, **kwargs):
         EnqueuedTask.objects.filter(task_id=task_id).update(
             app_name='Failed',
             completed_at=timezone.now(),
-            status='Scan Timeout',
+            status='扫描超时',
         )
         logger.error('Task %s exceeded maximum timeout', task_id)
 

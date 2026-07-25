@@ -172,7 +172,7 @@ def staticanalyzer_windows(request, checksum, api=False):
         else:
             return render(request, template, context)
     except Exception as exception:
-        msg = 'Error Performing Static Analysis'
+        msg = '执行静态分析时出错'
         logger.exception(msg)
         append_scan_status(checksum, msg, repr(exception))
         return print_n_send_error_response(
@@ -529,7 +529,7 @@ def binscope(checksum, name, bin_an_dic, run_local=False, app_dir=None):
                 try:
                     desc = item.find('Information').text
                 except AttributeError:
-                    desc = 'No description provided by analysing tool.'
+                    desc = '分析工具未提供描述。'
             elif res == 'FAIL':
                 status = 'Insecure'
 
@@ -541,7 +541,7 @@ def binscope(checksum, name, bin_an_dic, run_local=False, app_dir=None):
                     status = 'Info'
                     desc = item.find('diagnostic').text
                 else:
-                    desc = 'No description provided by analysing tool.'
+                    desc = '分析工具未提供描述。'
 
             result = {
                 'rule_id': item.find('issueType').text,

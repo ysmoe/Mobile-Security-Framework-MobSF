@@ -38,7 +38,7 @@ def get_context_from_db_entry(db_entry: QuerySet) -> dict:
             package)
         context = {
             'version': settings.MOBSF_VER,
-            'title': 'Static Analysis',
+            'title': '静态分析',
             'file_name': db_entry[0].FILE_NAME,
             'app_name': db_entry[0].APP_NAME,
             'app_type': db_entry[0].APP_TYPE,
@@ -115,7 +115,7 @@ def get_context_from_analysis(app_dic,
             man_an_dic['manifest_anal'],
             package)
         context = {
-            'title': 'Static Analysis',
+            'title': '静态分析',
             'version': settings.MOBSF_VER,
             'file_name': app_dic['app_name'],
             'app_name': app_dic['real_name'],

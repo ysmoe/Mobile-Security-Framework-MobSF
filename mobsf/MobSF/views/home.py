@@ -441,7 +441,7 @@ def download_binary(request, checksum, api=False):
         robj = RecentScansDB.objects.filter(MD5=checksum).first()
         if not robj:
             return HttpResponse(
-                'Scan hash not found',
+                '未找到扫描哈希',
                 status=HTTP_STATUS_404)
         file_ext = f'.{robj.SCAN_TYPE}'
         if file_ext not in allowed_exts.keys():
@@ -461,7 +461,7 @@ def download_binary(request, checksum, api=False):
     except Exception:
         logger.exception('Download Binary Failed')
         return HttpResponse(
-            'Failed to download file due to an error',
+            '下载文件时出错',
             status=HTTP_SERVER_ERROR)
 
 

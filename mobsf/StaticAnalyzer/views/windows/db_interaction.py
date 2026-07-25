@@ -19,7 +19,7 @@ def get_context_from_db_entry(db_entry):
     try:
         logger.info('Analysis is already Done. Fetching data from the DB...')
         context = {
-            'title': 'Static Analysis',
+            'title': '静态分析',
             'version': settings.MOBSF_VER,
             'file_name': db_entry[0].FILE_NAME,
             'app_name': db_entry[0].APP_NAME,
@@ -55,7 +55,7 @@ def get_context_from_analysis(app_dic,
     """Get the context for APPX from analysis results."""
     try:
         context = {
-            'title': 'Static Analysis',
+            'title': '静态分析',
             'version': settings.MOBSF_VER,
             'file_name': app_dic['app_name'],
             'app_name': bin_an_dic['bin_name'],

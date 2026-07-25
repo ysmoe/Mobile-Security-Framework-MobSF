@@ -242,10 +242,10 @@ class ELFChecksec:
         is_stripped = self.is_symbols_stripped()
         if is_stripped:
             severity = INFO
-            desc = 'Symbols are stripped.'
+            desc = '符号已被剥离。'
         else:
             severity = WARNING
-            desc = 'Symbols are available.'
+            desc = '符号可用。'
         elf_dict['symbol'] = {
             'is_stripped': is_stripped,
             'severity': severity,
