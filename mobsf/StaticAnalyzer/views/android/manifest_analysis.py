@@ -309,13 +309,13 @@ def manifest_analysis(app_dic, man_data_dic):
             for node in application.childNodes:
                 an_or_a = ''
                 if node.nodeName == 'activity':
-                    itemname = 'Activity'
+                    itemname = '活动'
                     cnt_id = 'act'
-                    an_or_a = 'n'
+                    an_or_a = '一个'
                 elif node.nodeName == 'activity-alias':
-                    itemname = 'Activity-Alias'
+                    itemname = '活动别名'
                     cnt_id = 'act'
-                    an_or_a = 'n'
+                    an_or_a = '一个'
                 elif node.nodeName == 'provider':
                     itemname = '内容提供者'
                     cnt_id = 'cnt'
@@ -323,13 +323,13 @@ def manifest_analysis(app_dic, man_data_dic):
                     itemname = '广播接收器'
                     cnt_id = 'bro'
                 elif node.nodeName == 'service':
-                    itemname = 'Service'
+                    itemname = '服务'
                     cnt_id = 'ser'
                 else:
-                    itemname = 'NIL'
+                    itemname = '无'
                 item = ''
                 # Checks for Activities
-                if itemname in ['Activity', 'Activity-Alias']:
+                if itemname in ['活动', '活动别名']:
                     item = node.getAttribute(f'{ns}:name')
                     item = escape_manifest_attribute(item)
                     # Browsable Activities
@@ -391,7 +391,7 @@ def manifest_analysis(app_dic, man_data_dic):
                 prot_level_exist = False
                 protlevel = ''
                 # End
-                if itemname != 'NIL':
+                if itemname != '无':
                     if node.getAttribute(f'{ns}:exported') == 'true':
                         perm = ''
                         item = node.getAttribute(f'{ns}:name')
@@ -419,14 +419,14 @@ def manifest_analysis(app_dic, man_data_dic):
                                     if protlevel == 'normal':
                                         ret_list.append(
                                             ('exported_protected_permission_normal', (itemname, item, perm + prot), (an_or_a, itemname)))
-                                        if itemname in ['Activity', 'Activity-Alias']:
+                                        if itemname in ['活动', '活动别名']:
                                             exported.append(item)
                                         exp_count[cnt_id] = exp_count[
                                             cnt_id] + 1
                                     elif protlevel == 'dangerous':
                                         ret_list.append(
                                             ('exported_protected_permission_dangerous', (itemname, item, perm + prot), (an_or_a, itemname)))
-                                        if itemname in ['Activity', 'Activity-Alias']:
+                                        if itemname in ['活动', '活动别名']:
                                             exported.append(item)
                                         exp_count[cnt_id] = exp_count[
                                             cnt_id] + 1
@@ -439,7 +439,7 @@ def manifest_analysis(app_dic, man_data_dic):
                                 else:
                                     ret_list.append(
                                         ('exported_protected_permission_not_defined', (itemname, item, perm), (an_or_a, itemname)))
-                                    if itemname in ['Activity', 'Activity-Alias']:
+                                    if itemname in ['活动', '活动别名']:
                                         exported.append(item)
                                     exp_count[cnt_id] = exp_count[cnt_id] + 1
                                 # Esteve 23.07.2016 - end
@@ -450,7 +450,7 @@ def manifest_analysis(app_dic, man_data_dic):
                                 if perm_appl_level_exists is False:
                                     ret_list.append(
                                         ('explicitly_exported', (itemname, item), (an_or_a, itemname)))
-                                    if itemname in ['Activity', 'Activity-Alias']:
+                                    if itemname in ['活动', '活动别名']:
                                         exported.append(item)
                                     exp_count[cnt_id] = exp_count[cnt_id] + 1
                                 # Esteve 24.07.2016 - end
@@ -473,14 +473,14 @@ def manifest_analysis(app_dic, man_data_dic):
                                         if protlevel == 'normal':
                                             ret_list.append(
                                                 ('exported_protected_permission_normal_app_level', (itemname, item, perm + prot), (an_or_a, itemname)))
-                                            if itemname in ['Activity', 'Activity-Alias']:
+                                            if itemname in ['活动', '活动别名']:
                                                 exported.append(item)
                                             exp_count[cnt_id] = exp_count[
                                                 cnt_id] + 1
                                         elif protlevel == 'dangerous':
                                             ret_list.append(
                                                 ('exported_protected_permission_dangerous_app_level', (itemname, item, perm + prot), (an_or_a, itemname)))
-                                            if itemname in ['Activity', 'Activity-Alias']:
+                                            if itemname in ['活动', '活动别名']:
                                                 exported.append(item)
                                             exp_count[cnt_id] = exp_count[
                                                 cnt_id] + 1
@@ -493,7 +493,7 @@ def manifest_analysis(app_dic, man_data_dic):
                                     else:
                                         ret_list.append(
                                             ('exported_protected_permission_app_level', (itemname, item, perm), (an_or_a, itemname)))
-                                        if itemname in ['Activity', 'Activity-Alias']:
+                                        if itemname in ['活动', '活动别名']:
                                             exported.append(item)
                                         exp_count[cnt_id] = exp_count[
                                             cnt_id] + 1
@@ -533,14 +533,14 @@ def manifest_analysis(app_dic, man_data_dic):
                                             if protlevel == 'normal':
                                                 ret_list.append(
                                                     ('exported_protected_permission_normal', (itemname, item, perm + prot), (an_or_a, itemname)))
-                                                if itemname in ['Activity', 'Activity-Alias']:
+                                                if itemname in ['活动', '活动别名']:
                                                     exported.append(item)
                                                 exp_count[cnt_id] = exp_count[
                                                     cnt_id] + 1
                                             elif protlevel == 'dangerous':
                                                 ret_list.append(
                                                     ('exported_protected_permission_dangerous', (itemname, item, perm + prot), (an_or_a, itemname)))
-                                                if itemname in ['Activity', 'Activity-Alias']:
+                                                if itemname in ['活动', '活动别名']:
                                                     exported.append(item)
                                                 exp_count[cnt_id] = exp_count[
                                                     cnt_id] + 1
@@ -553,7 +553,7 @@ def manifest_analysis(app_dic, man_data_dic):
                                     else:
                                         ret_list.append(
                                             ('exported_protected_permission_not_defined', (itemname, item, perm), (an_or_a, itemname)))
-                                        if itemname in ['Activity', 'Activity-Alias']:
+                                        if itemname in ['活动', '活动别名']:
                                             exported.append(item)
                                         exp_count[cnt_id] = exp_count[
                                             cnt_id] + 1
@@ -565,7 +565,7 @@ def manifest_analysis(app_dic, man_data_dic):
                                     if perm_appl_level_exists is False:
                                         ret_list.append(
                                             ('exported_intent_filter_exists', (itemname, item), (an_or_a, itemname, itemname)))
-                                        if itemname in ['Activity', 'Activity-Alias']:
+                                        if itemname in ['活动', '活动别名']:
                                             exported.append(item)
                                         exp_count[cnt_id] = exp_count[
                                             cnt_id] + 1
@@ -589,14 +589,14 @@ def manifest_analysis(app_dic, man_data_dic):
                                             if protlevel == 'normal':
                                                 ret_list.append(
                                                     ('exported_protected_permission_normal_app_level', (itemname, item, perm + prot), (an_or_a, itemname)))
-                                                if itemname in ['Activity', 'Activity-Alias']:
+                                                if itemname in ['活动', '活动别名']:
                                                     exported.append(item)
                                                 exp_count[cnt_id] = exp_count[
                                                     cnt_id] + 1
                                             elif protlevel == 'dangerous':
                                                 ret_list.append(
                                                     ('exported_protected_permission_dangerous_app_level', (itemname, item, perm + prot), (an_or_a, itemname)))
-                                                if itemname in ['Activity', 'Activity-Alias']:
+                                                if itemname in ['活动', '活动别名']:
                                                     exported.append(item)
                                                 exp_count[cnt_id] = exp_count[
                                                     cnt_id] + 1
@@ -609,7 +609,7 @@ def manifest_analysis(app_dic, man_data_dic):
                                         else:
                                             ret_list.append(
                                                 ('exported_protected_permission_app_level', (itemname, item, perm), (an_or_a, itemname)))
-                                            if itemname in ['Activity', 'Activity-Alias']:
+                                            if itemname in ['活动', '活动别名']:
                                                 exported.append(item)
                                             exp_count[cnt_id] = exp_count[
                                                 cnt_id] + 1

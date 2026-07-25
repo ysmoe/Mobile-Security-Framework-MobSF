@@ -653,35 +653,35 @@
                        <tr>
                         <td>{{ forloop.counter }}</td>
                         <td width="20%">{{so.name | relative_path}}</td>
-                        <td style="vertical-align: top;"><b>{{so.nx.is_nx}}</b>
+                        <td style="vertical-align: top;"><b>{{ so.nx.is_nx|yesno:"是,否,无" }}</b>
                           <br/>
                           <span class="{% if so.nx.severity == 'high' %}danger{% elif so.nx.severity == 'warning' %}warning{% else %}info{% endif %}">{{so.nx.severity}}</span>
                           <br/>{{so.nx.description}}</td>
-                          <td style="vertical-align: top;"><b>{{so.pie.is_pie}}</b>
+                          <td style="vertical-align: top;"><b>{{ so.pie.is_pie|yesno:"是,否,无" }}</b>
                             <br/>
                             <span class="{% if so.pie.severity == 'high' %}danger{% elif so.pie.severity == 'warning' %}warning{% else %}info{% endif %}">{{so.pie.severity}}</span>
                             <br/>{{so.pie.description}}</td>
-                          <td style="vertical-align: top;"><b>{{so.stack_canary.has_canary}}</b>
+                          <td style="vertical-align: top;"><b>{{ so.stack_canary.has_canary|yesno:"是,否,无" }}</b>
                             <br/>
                             <span class="{% if so.stack_canary.severity == 'high' %}danger{% elif so.stack_canary.severity == 'warning' %}warning{% else %}info{% endif %}">{{so.stack_canary.severity}}</span>
                             <br/>{{so.stack_canary.description}}</td>
-                        <td style="vertical-align: top;"><b>{{so.relocation_readonly.relro}}</b>
+                        <td style="vertical-align: top;"><b>{{ so.relocation_readonly.relro|yesno:"是,否,无" }}</b>
                               <br/>
                               <span class="{% if so.relocation_readonly.severity == 'high' %}danger{% elif so.relocation_readonly.severity == 'warning' %}warning{% else %}info{% endif %}">{{so.relocation_readonly.severity}}</span>
                               <br/>{{so.relocation_readonly.description}}</td>
-                        <td style="vertical-align: top;"><b>{{so.rpath.rpath}}</b>
+                        <td style="vertical-align: top;"><b>{{ so.rpath.rpath|yesno:"是,否,无" }}</b>
                           <br/>
                           <span class="{% if so.rpath.severity == 'high' %}danger{% elif so.rpath.severity == 'warning' %}warning{% else %}info{% endif %}">{{so.rpath.severity}}</span>
                           <br/>{{so.rpath.description}}</td>
-                        <td style="vertical-align: top;"><b>{{so.runpath.runpath}}</b>
+                        <td style="vertical-align: top;"><b>{{ so.runpath.runpath|yesno:"是,否,无" }}</b>
                           <br/>
                           <span class="{% if so.runpath.severity == 'high' %}danger{% elif so.runpath.severity == 'warning' %}warning{% else %}info{% endif %}">{{so.runpath.severity}}</span>
                           <br/>{{so.runpath.description}}</td>
-                        <td style="vertical-align: top;"><b>{{so.fortify.is_fortified}}</b>
+                        <td style="vertical-align: top;"><b>{{ so.fortify.is_fortified|yesno:"是,否,无" }}</b>
                           <br/>
                           <span class="{% if so.fortify.severity == 'high' %}danger{% elif so.fortify.severity == 'warning' %}warning{% else %}info{% endif %}">{{so.fortify.severity}}</span>
                           <br/>{{so.fortify.description}}</td>
-                        <td style="vertical-align: top;"><b>{{so.symbol.is_stripped}}</b>
+                        <td style="vertical-align: top;"><b>{{ so.symbol.is_stripped|yesno:"是,否,无" }}</b>
                           <br/>
                           <span class="{% if so.symbol.severity == 'high' %}danger{% elif so.symbol.severity == 'warning' %}warning{% else %}info{% endif %}">{{so.symbol.severity}}</span>
                           <br/>{{so.symbol.description}}</td>

@@ -83,16 +83,16 @@ def get_cert_details(data):
     certlist = []
     x509_cert = asn1crypto.x509.Certificate.load(data)
     subject = util.get_certificate_name_string(x509_cert.subject, short=True)
-    certlist.append(f'X.509 Subject: {subject}')
-    certlist.append(f'Signature Algorithm: {x509_cert.signature_algo}')
+    certlist.append(f'X.509 主题：{subject}')
+    certlist.append(f'签名算法：{x509_cert.signature_algo}')
     valid_from = x509_cert['tbs_certificate']['validity']['not_before'].native
-    certlist.append(f'Valid From: {valid_from}')
+    certlist.append(f'有效期起始：{valid_from}')
     valid_to = x509_cert['tbs_certificate']['validity']['not_after'].native
-    certlist.append(f'Valid To: {valid_to}')
+    certlist.append(f'有效期截止：{valid_to}')
     issuer = util.get_certificate_name_string(x509_cert.issuer, short=True)
-    certlist.append(f'Issuer: {issuer}')
-    certlist.append(f'Serial Number: {hex(x509_cert.serial_number)}')
-    certlist.append(f'Hash Algorithm: {x509_cert.hash_algo}')
+    certlist.append(f'颁发者：{issuer}')
+    certlist.append(f'序列号：{hex(x509_cert.serial_number)}')
+    certlist.append(f'哈希算法：{x509_cert.hash_algo}')
     for k, v in HASH_FUNCS.items():
         certlist.append(f'{k}: {v(data).hexdigest()}')
     return certlist
@@ -127,9 +127,9 @@ def get_pub_key_details(data):
         # Untested, possibly wrong key size and fingerprint
         to_hash += data[25:]
     fingerprint = gen_sha256_hash(to_hash)
-    certlist.append(f'PublicKey Algorithm: {alg}')
-    certlist.append(f'Bit Size: {x509_public_key.key_size}')
-    certlist.append(f'Fingerprint: {fingerprint}')
+    certlist.append(f'公钥算法：{alg}')
+    certlist.append(f'位数：{x509_public_key.key_size}')
+    certlist.append(f'指纹：{fingerprint}')
     return certlist
 
 
@@ -213,9 +213,9 @@ def apksigtool_cert(checksum, apk_path, tools_dir):
             logger.warning('Failed to get signature versions with apksigtool')
 
         if signed:
-            certlist.append('Binary is signed')
+            certlist.append('二进制文件已签名')
         else:
-            certlist.append('Binary is not signed')
+            certlist.append('二进制文件未签名')
         v1, v2, v3, v4 = get_signature_versions(
             checksum,
             apk_path,
@@ -225,13 +225,13 @@ def apksigtool_cert(checksum, apk_path, tools_dir):
             # apksigner.jar failed to get signature versions
             logger.info('Fetching signature versions with apksigtool')
             v1, v2, v3, v4 = av1, av2, av3, av4
-        certlist.append(f'v1 signature: {v1}')
-        certlist.append(f'v2 signature: {v2}')
-        certlist.append(f'v3 signature: {v3}')
-        certlist.append(f'v4 signature: {v4}')
+        certlist.append(f'v1 签名：{"是" if v1 else "否"}')
+        certlist.append(f'v2 签名：{"是" if v2 else "否"}')
+        certlist.append(f'v3 签名：{"是" if v3 else "否"}')
+        certlist.append(f'v4 签名：{"是" if v4 else "否"}')
         certlist.extend(certs)
         certlist.extend(pub_keys)
-        certlist.append(f'Found {certs_no} unique certificates')
+        certlist.append(f'发现 {certs_no} 个唯一证书')
     except Exception as exp:
         msg = 'Failed to parse code signing certificate'
         logger.exception(msg)
@@ -254,9 +254,9 @@ def get_cert_data(checksum, a, app_path, tools_dir):
     signed = False
     if a.is_signed():
         signed = True
-        certlist.append('Binary is signed')
+        certlist.append('二进制文件已签名')
     else:
-        certlist.append('Binary is not signed')
+        certlist.append('二进制文件未签名')
         certlist.append('Missing certificate')
     v1, v2, v3, v4 = get_signature_versions(
         checksum,
@@ -267,10 +267,10 @@ def get_cert_data(checksum, a, app_path, tools_dir):
         # apksigner.jar failed to get signature versions
         logger.info('Fetching signature versions with androguard')
         v1, v2, v3, v4 = a.is_signed_v1(), a.is_signed_v2(), a.is_signed_v3(), None
-    certlist.append(f'v1 signature: {v1}')
-    certlist.append(f'v2 signature: {v2}')
-    certlist.append(f'v3 signature: {v3}')
-    certlist.append(f'v4 signature: {v4}')
+    certlist.append(f'v1 签名：{"是" if v1 else "否"}')
+    certlist.append(f'v2 签名：{"是" if v2 else "否"}')
+    certlist.append(f'v3 签名：{"是" if v3 else "否"}')
+    certlist.append(f'v4 签名：{"是" if v4 else "否"}')
 
     certs = set(a.get_certificates_der_v3() + a.get_certificates_der_v2()
                 + [a.get_certificate_der(x)
@@ -284,7 +284,7 @@ def get_cert_data(checksum, a, app_path, tools_dir):
         certlist.extend(get_pub_key_details(public_key))
 
     if len(certs) > 0:
-        certlist.append(f'Found {len(certs)} unique certificates')
+        certlist.append(f'发现 {len(certs)} 个唯一证书')
 
     return {
         'cert_data': '\n'.join(certlist),
@@ -365,9 +365,9 @@ def cert_info(app_dic, man_dict):
                 summary[WARNING] += 1
             findings.append((
                 status,
-                'Application is signed with v1 signature scheme, '
-                'making it vulnerable to Janus vulnerability on '
-                'Android 5.0-8.0, if signed only with v1 signature'
+                '应用使用 v1 签名方案进行签名，'
+                '在 Android 5.0-8.0 上容易受到 Janus 漏洞攻击，'
+                '如果仅使用 v1 签名进行签名'
                 ' scheme. Applications running on Android 5.0-7.0'
                 ' signed with v1, and v2/v3 '
                 'scheme is also vulnerable.',
@@ -380,7 +380,7 @@ def cert_info(app_dic, man_dict):
                 'Production application must not be shipped '
                 'with a debug certificate.',
                 'Application signed with debug certificate'))
-        if re.findall(r'Hash Algorithm: sha1', cert_data['cert_data']):
+        if re.findall(r'哈希算法：sha1', cert_data['cert_data']):
             status = HIGH
             summary[HIGH] += 1
             desc = (
@@ -396,9 +396,9 @@ def cert_info(app_dic, man_dict):
                     ' The manifest file indicates SHA256withRSA'
                     ' is in use.')
                 title = ('证书算法可能 '
-                         'vulnerable to hash collision')
+                         '易受哈希碰撞攻击')
             findings.append((status, desc, title))
-        if re.findall(r'Hash Algorithm: md5', cert_data['cert_data']):
+        if re.findall(r'哈希算法：md5', cert_data['cert_data']):
             status = HIGH
             summary[HIGH] += 1
             desc = (

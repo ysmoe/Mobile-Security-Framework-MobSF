@@ -16,9 +16,9 @@ from django.conf import settings
 
 
 NA = 'Not Applicable'
-NO_RELRO = 'No RELRO'
-PARTIAL_RELRO = 'Partial RELRO'
-FULL_RELRO = 'Full RELRO'
+NO_RELRO = '无 RELRO'
+PARTIAL_RELRO = '部分 RELRO'
+FULL_RELRO = '完整 RELRO'
 INFO = 'info'
 WARNING = 'warning'
 HIGH = 'high'
@@ -51,17 +51,17 @@ class ELFChecksec:
         if is_nx:
             severity = INFO
             desc = (
-                'The binary has NX bit set. This marks a '
-                'memory page non-executable making attacker '
-                'injected shellcode non-executable.')
+                '该二进制文件已设置 NX 位。这将内存页标记为不可执行，使攻击者注入的 shellcode 不可执行。'
+                '内存页不可执行，使攻击者'
+                '注入的 shellcode 不可执行。')
         else:
             severity = HIGH
             desc = (
-                'The binary does not have NX bit set. NX bit '
-                'offer protection against exploitation of memory corruption '
-                'vulnerabilities by marking memory page as non-executable. '
-                'Use option --noexecstack or -z noexecstack to mark stack as '
-                'non executable.')
+                '该二进制文件未设置 NX 位。NX 位'
+                '通过将内存页标记为不可执行，提供针对内存破坏漏洞利用的保护。'
+                '通过将内存页标记为不可执行，提供针对内存破坏漏洞利用的保护。'
+                '使用 --noexecstack 或 -z noexecstack 选项将堆栈标记为'
+                '不可执行。')
         elf_dict['nx'] = {
             'is_nx': is_nx,
             'severity': severity,
@@ -70,31 +70,31 @@ class ELFChecksec:
         severity = 'info'
         is_pie = self.is_pie()
         if is_pie == 'dso':
-            is_pie = 'Dynamic Shared Object (DSO)'
+            is_pie = '动态共享对象（DSO）'
             desc = (
-                'The shared object is build with -fPIC flag which '
-                'enables Position independent code. This makes Return '
-                'Oriented Programming (ROP) attacks much more difficult '
-                'to execute reliably.')
+                '该共享对象使用 -fPIC 标志编译，'
+                '启用位置无关代码。这使得面向返回的编程'
+                '（ROP）攻击更难可靠执行。'
+                '可靠地执行。')
         elif is_pie == 'pie':
-            is_pie = 'Position Independent Executable (PIE)'
+            is_pie = '位置无关可执行文件（PIE）'
             desc = (
-                'The shared object is build with -fPIC flag which '
-                'enables Position independent code. This makes Return '
-                'Oriented Programming (ROP) attacks much more difficult '
-                'to execute reliably.')
+                '该共享对象使用 -fPIC 标志编译，'
+                '启用位置无关代码。这使得面向返回的编程'
+                '（ROP）攻击更难可靠执行。'
+                '可靠地执行。')
         elif is_pie == 'rel':
-            is_pie = 'Relocatable Object File'
+            is_pie = '可重定位目标文件'
             desc = (
-                'The shared object is build with -fPIC flag which '
-                'enables Position independent code. This makes Return '
-                'Oriented Programming (ROP) attacks much more difficult '
-                'to execute reliably.')
+                '该共享对象使用 -fPIC 标志编译，'
+                '启用位置无关代码。这使得面向返回的编程'
+                '（ROP）攻击更难可靠执行。'
+                '可靠地执行。')
         elif is_pie == 'no':
-            is_pie = 'No PIE'
+            is_pie = '无 PIE'
             severity = 'high'
             desc = (
-                'The shared object is built without Position '
+                '该共享对象编译时未使用'
                 'Independent Code flag. In order to prevent '
                 'an attacker from reliably jumping to, for example, a '
                 'particular exploited function in memory, Address '
@@ -112,21 +112,17 @@ class ELFChecksec:
         if has_canary:
             severity = INFO
             desc = (
-                'This binary has a stack canary value '
-                'added to the stack so that it will be overwritten by '
-                'a stack buffer that overflows the return address. '
-                'This allows detection of overflows by verifying the '
-                'integrity of the canary before function return.')
+                '该二进制文件在堆栈中添加了 stack canary 值，以便在'
+                '由溢出返回地址的堆栈缓冲区覆盖时会被覆盖。'
+                '这允许通过验证 canary 的完整性来检测溢出，'
+                '然后再执行函数返回。')
         else:
             severity = HIGH
             desc = (
-                'This binary does not have a stack '
-                'canary value added to the stack. Stack canaries '
-                'are used to detect and prevent exploits from '
-                'overwriting return address. Use the option '
-                '-fstack-protector-all to enable stack canaries. '
-                'Not applicable for Dart/Flutter libraries unless '
-                'Dart FFI is used.')
+                '该二进制文件的堆栈中未添加 stack canary 值。'
+                'Stack canaries 用于检测和防止漏洞利用覆盖返回地址。'
+                '使用 -fstack-protector-all 选项启用 stack canaries。'
+                '除非使用 Dart FFI，否则不适用于 Dart/Flutter 库。')
         elf_dict['stack_canary'] = {
             'has_canary': has_canary,
             'severity': severity,
@@ -209,7 +205,7 @@ class ELFChecksec:
         else:
             severity = INFO
             desc = (
-                'The binary does not have RUNPATH set.')
+                '该二进制文件未设置 RUNPATH。')
             rnp = runpath
         elf_dict['runpath'] = {
             'runpath': rnp,

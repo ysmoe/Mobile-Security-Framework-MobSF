@@ -64,15 +64,15 @@ class MachOChecksec:
         if has_nx:
             severity = 'info'
             desc = (
-                'The binary has NX bit set. This marks a '
-                'memory page non-executable making attacker '
-                'injected shellcode non-executable.')
+                '该二进制文件已设置 NX 位。这将内存页标记为不可执行，使攻击者注入的 shellcode 不可执行。'
+                '内存页不可执行，使攻击者'
+                '注入的 shellcode 不可执行。')
         else:
             severity = 'info'
             desc = (
-                'The binary does not have NX bit set. NX bit '
-                'offer protection against exploitation of memory corruption '
-                'vulnerabilities by marking memory page as non-executable. '
+                '该二进制文件未设置 NX 位。NX 位'
+                '通过将内存页标记为不可执行，提供针对内存破坏漏洞利用的保护。'
+                '通过将内存页标记为不可执行，提供针对内存破坏漏洞利用的保护。'
                 'However iOS never allows an app to execute from writeable '
                 'memory. You do not need to specifically enable the '
                 '‘NX bit’ because it’s always enabled for all '
@@ -85,7 +85,7 @@ class MachOChecksec:
         if has_pie:
             severity = 'info'
             desc = (
-                'The binary is build with -fPIC flag which '
+                '该二进制文件使用 -fPIC 标志编译，'
                 'enables Position independent code. This makes Return '
                 'Oriented Programming (ROP) attacks much more difficult '
                 'to execute reliably.')
@@ -99,7 +99,7 @@ class MachOChecksec:
                     or (not ext and '.framework' in self.macho_name)):
                 severity = 'info'
             desc = (
-                'The binary is built without Position '
+                '该二进制文件编译时未使用'
                 'Independent Code flag. In order to prevent '
                 'an attacker from reliably jumping to, for example, a '
                 'particular exploited function in memory, Address '
@@ -107,7 +107,7 @@ class MachOChecksec:
                 'the address space positions of key data areas of a '
                 'process, including the base of the executable and the '
                 'positions of the stack,heap and libraries. Use compiler '
-                'option -fPIC to enable Position Independent Code. '
+                '使用 -fPIC 选项启用位置无关代码。'
                 'Not applicable for dylibs and static libraries.')
         macho_dict['pie'] = {
             'has_pie': has_pie,
@@ -117,7 +117,7 @@ class MachOChecksec:
         if has_canary:
             severity = 'info'
             desc = (
-                'This binary has a stack canary value '
+                '该二进制文件具有 stack canary 值'
                 'added to the stack so that it will be overwritten by '
                 'a stack buffer that overflows the return address. '
                 'This allows detection of overflows by verifying the '
@@ -125,8 +125,8 @@ class MachOChecksec:
         elif is_stripped:
             severity = 'warning'
             desc = (
-                'This binary has debug symbols stripped. We cannot identify '
-                'whether stack canary is enabled or not.')
+                '该二进制文件已剥离调试符号。我们无法识别'
+                'stack canary 是否已启用。')
         else:
             severity = 'high'
             sw_msg = ''
@@ -157,7 +157,7 @@ class MachOChecksec:
         elif is_stripped:
             severity = 'warning'
             desc = (
-                'This binary has debug symbols stripped. We cannot identify '
+                '该二进制文件已剥离调试符号。我们无法识别'
                 'whether ARC is enabled or not.')
         else:
             severity = 'high'
@@ -223,7 +223,7 @@ class MachOChecksec:
             severity = 'warning'
             desc = (
                 'Debug 符号可用。 To strip '
-                'debugging symbols, set Strip Debug '
+                '调试符号，请设置 Strip Debug'
                 'Symbols During Copy to YES, '
                 'Deployment Postprocessing to YES, '
                 'and Strip Linked Product to YES in '
