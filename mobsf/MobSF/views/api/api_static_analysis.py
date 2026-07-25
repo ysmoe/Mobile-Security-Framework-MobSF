@@ -169,6 +169,38 @@ def api_pdf_report(request):
 
 @request_method(['POST'])
 @csrf_exempt
+def api_docx_report(request):
+    """Generate and Download DOCX (Word) report."""
+    if 'hash' not in request.POST:
+        return make_api_response(
+            {'error': 'Missing Parameters'}, 422)
+    from mobsf.StaticAnalyzer.views.common.docx import docx as docx_view
+    resp = docx_view(
+        request,
+        request.POST['hash'],
+        api=True)
+    if 'error' in resp:
+        if resp.get('error') == 'Invalid scan hash':
+            response = make_api_response(resp, 400)
+        else:
+            response = make_api_response(resp, 500)
+    elif 'docx_dat' in resp:
+        response = HttpResponse(
+            resp['docx_dat'],
+            content_type=(
+                'application/vnd.openxmlformats-officedocument'
+                '.wordprocessingml.document'))
+        response['Access-Control-Allow-Origin'] = '*'
+    elif resp.get('report') == 'Report not Found':
+        response = make_api_response(resp, 404)
+    else:
+        response = make_api_response(
+            {'error': 'DOCX Generation Error'}, 500)
+    return response
+
+
+@request_method(['POST'])
+@csrf_exempt
 def api_json_report(request):
     """Generate JSON Report."""
     if 'hash' not in request.POST:

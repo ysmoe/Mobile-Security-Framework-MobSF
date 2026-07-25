@@ -102,6 +102,7 @@ urlpatterns = [
     re_path(r'^api/v1/tasks$', api_sz.api_tasks),
     re_path(r'^api/v1/delete_scan$', api_sz.api_delete_scan),
     re_path(r'^api/v1/download_pdf$', api_sz.api_pdf_report),
+    re_path(r'^api/v1/download_docx$', api_sz.api_docx_report),
     re_path(r'^api/v1/report_json$', api_sz.api_json_report),
     re_path(r'^api/v1/view_source$', api_sz.api_view_source,
             name='api_view_source'),

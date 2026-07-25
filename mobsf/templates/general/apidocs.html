@@ -36,6 +36,7 @@
               <li><code>api/v1/delete_scan</code> - <a href="#delete-scan-api">Delete a Scan</a></li>
               <li><code>api/v1/scorecard</code> - <a href="#scorecard-api">App Scorecard</a></li>
               <li><code>api/v1/download_pdf</code> - <a href="#generate-pdf-report-api">Download PDF Report</a></li>
+              <li><code>api/v1/download_docx</code> - <a href="#generate-docx-report-api">Download DOCX (Word) Report</a></li>
               <li><code>api/v1/report_json</code> - <a href="#generate-json-report-api">Generate JSON Report</a></li>
               <li><code>api/v1/view_source</code> - <a href="#view-source-api">View Source Files</a></li>
               <li><code>api/v1/compare</code> - <a href="#compare-api">Compare Apps</a></li>
@@ -695,6 +696,34 @@
                 <ul>
                   <li>
                     <pre><code>curl -X POST --url http://localhost:8000/api/v1/download_pdf --data &quot;hash=82ab8b2193b3cfb1c737e3a786be363a&quot; -H &quot;X-Mobsf-Api-Key: {{ api_key}}&quot;
+                  </code></pre>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <hr />
+            <h2><a id="generate-docx-report-api"></a><strong>Generate DOCX (Word) Report API</strong></h2>
+            <p>API to generate a Microsoft Word (.docx) report. The response body is the raw DOCX file (Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document). The DOCX report reuses the same scan data as the PDF report but is rendered with python-docx so the file is editable in Word, WPS, LibreOffice etc.</p>
+            <ul>
+              <li>
+                <p><strong>URL:</strong> <code>/api/v1/download_docx</code></p>
+                <p><strong>Method:</strong> <code>POST</code></p>
+                <p><strong>Parameters:</strong> <code>hash</code> - MD5 of the scan</p>
+                <p><strong>Authorization:</strong> API Key required</p>
+              </li>
+              <li>
+                <p><strong>Sample Call:</strong></p>
+                <ul>
+                  <li>
+                    <pre><code>curl -X POST --url http://localhost:8000/api/v1/download_docx --data &quot;hash=82ab8b2193b3cfb1c737e3a786be363a&quot; -H &quot;Authorization: *** api_key}}&quot; -o report.docx
+                  </code></pre>
+                  </li>
+                </ul>
+                <p>OR</p>
+                <ul>
+                  <li>
+                    <pre><code>curl -X POST --url http://localhost:8000/api/v1/download_docx --data &quot;hash=82ab8b2193b3cfb1c737e3a786be363a&quot; -H &quot;X-Mobsf-Api-Key: *** api_key}}&quot; -o report.docx
                   </code></pre>
                   </li>
                 </ul>
