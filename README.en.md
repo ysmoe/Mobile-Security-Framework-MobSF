@@ -27,11 +27,20 @@ This project integrates and refines **open-source mobile security tooling** to d
 ### Option 1: Docker (recommended)
 
 ```bash
-docker pull opensecurity/mobile-security-framework-mobsf:latest
-docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
+docker pull ghcr.io/ysmoe/mobsf-chinese-ysmoe:latest
+docker run -it --rm -p 8000:8000 ghcr.io/ysmoe/mobsf-chinese-ysmoe:latest
 # Default credentials: mobsf / mobsf
 # Then visit http://127.0.0.1:8000
 ```
+
+> **Image notes**
+>
+> - The image is built on top of the upstream [opensecurity/mobile-security-framework-mobsf](https://hub.docker.com/r/opensecurity/mobile-security-framework-mobsf/) image, with CJK fonts (Noto CJK), `python-docx`, and the Chinese localization files from this repository layered on top.
+> - The image is **private**. Log in to GHCR before pulling:
+>
+>   ```bash
+>   echo $GITHUB_PAT | docker login ghcr.io -u ysmoe --password-stdin
+>   ```
 
 ### Option 2: Local source
 

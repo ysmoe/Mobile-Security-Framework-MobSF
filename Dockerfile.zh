@@ -1,5 +1,10 @@
 FROM opensecurity/mobile-security-framework-mobsf:latest
 
+LABEL \
+    name="mobsf-chinese-ysmoe" \
+    maintainer="ysmoe" \
+    description="MobSF Chinese localization build. Patches the upstream opensecurity/mobile-security-framework-mobsf image with CJK fonts (Noto CJK), python-docx for DOCX report generation, and the Chinese localization files shipped in this repository."
+
 USER root
 # Install Chinese fonts
 RUN apt-get update -y && \

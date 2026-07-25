@@ -33,16 +33,28 @@
 
 ```bash
 # 拉取镜像
-docker pull opensecurity/mobile-security-framework-mobsf:latest
+docker pull ghcr.io/ysmoe/mobsf-chinese-ysmoe:latest
 
 # 启动服务,默认监听 8000 端口
-docker run -it --rm -p 8000:8000 opensecurity/mobile-security-framework-mobsf:latest
+docker run -it --rm -p 8000:8000 ghcr.io/ysmoe/mobsf-chinese-ysmoe:latest
 
 # 默认账号:mobsf / mobsf
 # 启动后访问 http://127.0.0.1:8000
 ```
 
 启动后访问 [http://127.0.0.1:8000](http://127.0.0.1:8000),使用默认账号登录即可。
+
+> **镜像说明**
+>
+> - 镜像基于上游 [opensecurity/mobile-security-framework-mobsf](https://hub.docker.com/r/opensecurity/mobile-security-framework-mobsf/) 构建,叠加中文字体(Noto CJK)与 `python-docx` 依赖,并应用本仓库的中文本地化补丁。
+> - 镜像仓库为 **私有**(private),首次拉取前需要先登录 GHCR:
+>
+>   ```bash
+>   # 登录 GitHub Container Registry(需要一个具备 read:packages 权限的 PAT)
+>   echo $GITHUB_PAT | docker login ghcr.io -u ysmoe --password-stdin
+>   ```
+>
+>   登录成功后即可正常 `docker pull`。
 
 ### 方式二:本地源码
 
