@@ -219,13 +219,20 @@ def _bootstrap_document(context=None):
     rfonts.set(qn('w:eastAsia'), CHINESE_FONT)
     rfonts.set(qn('w:ascii'), CHINESE_FONT)
     rfonts.set(qn('w:hAnsi'), CHINESE_FONT)
-    # Page setup — A4 landscape to match the PDF orientation
+    # Page setup — A4 portrait, 2cm margins. The original PDF report
+    # uses Letter landscape because wkhtmltopdf renders the full table
+    # width on one page, but Word users overwhelmingly expect A4 portrait
+    # for printable reports and that is the more useful default here.
+    from docx.shared import Cm
+    A4_HEIGHT = Cm(29.7)
+    A4_WIDTH = Cm(21.0)
     section = doc.sections[0]
-    section.page_height, section.page_width = section.page_width, section.page_height
-    section.left_margin = Inches(0.5)
-    section.right_margin = Inches(0.5)
-    section.top_margin = Inches(0.5)
-    section.bottom_margin = Inches(0.5)
+    section.page_height = A4_HEIGHT
+    section.page_width = A4_WIDTH
+    section.left_margin = Cm(2.0)
+    section.right_margin = Cm(2.0)
+    section.top_margin = Cm(2.0)
+    section.bottom_margin = Cm(2.0)
     return doc
 
 
