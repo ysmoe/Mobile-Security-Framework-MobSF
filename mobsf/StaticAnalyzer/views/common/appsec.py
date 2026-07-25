@@ -218,7 +218,7 @@ def get_android_dashboard(context, from_ctx=False):
         data = adb(context)
         if not data:
             return findings
-    # Certificate Analysis
+    # 证书分析
     if (data.get('certificate_analysis')
             and 'certificate_findings' in data['certificate_analysis']):
         for i in data['certificate_analysis']['certificate_findings']:
@@ -246,7 +246,7 @@ def get_android_dashboard(context, from_ctx=False):
                 'description': desc,
                 'section': 'network',
             })
-    # Manifest Analysis
+    # 清单分析
     if (data.get('manifest_analysis')
             and 'manifest_findings' in data['manifest_analysis']):
         for m in data['manifest_analysis']['manifest_findings']:
@@ -387,7 +387,7 @@ def appsec_dashboard(request, checksum, api=False):
                 msg = 'Report not found or supported'
                 return print_n_send_error_response(request, msg, api)
         context['version'] = settings.MOBSF_VER
-        context['title'] = 'AppSec Scorecard'
+        context['title'] = '应用安全记分卡'
         context['efr01'] = True if settings.EFR_01 == '1' else False
         if api:
             return context
@@ -397,7 +397,7 @@ def appsec_dashboard(request, checksum, api=False):
                 'static_analysis/appsec_dashboard.html',
                 context)
     except Exception as exp:
-        logger.exception('Error Generating Application Security Dashboard')
+        logger.exception('生成应用安全仪表板时出错')
         msg = str(exp)
         exp = exp.__doc__
         if api:

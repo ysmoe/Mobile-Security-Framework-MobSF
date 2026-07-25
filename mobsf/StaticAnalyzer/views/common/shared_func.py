@@ -71,7 +71,7 @@ for i in range(2, 50):
 def hash_gen(checksum, app_path) -> tuple:
     """Generate and return sha1 and sha256 as a tuple."""
     try:
-        msg = 'Generating Hashes'
+        msg = '生成哈希值'
         logger.info(msg)
         append_scan_status(checksum, msg)
         sha1 = hashlib.sha1()
@@ -114,7 +114,7 @@ def unzip(checksum, app_path, ext_path):
     Returns:
         list: A list of files extracted or an empty list if an error occurs.
     """
-    msg = 'Unzipping'
+    msg = '正在解压缩'
     logger.info(msg)
     append_scan_status(checksum, msg)
     files = []
@@ -187,7 +187,7 @@ def unzip(checksum, app_path, ext_path):
                     logger.warning(
                         'Failed to extract %s', sanitize_for_logging(file_path))
     except Exception as exp:
-        msg = f'Unzipping Error - {str(exp)}'
+        msg = f'正在解压缩 Error - {str(exp)}'
         logger.error(msg)
         append_scan_status(checksum, msg, repr(exp))
         # Do not fallback to OS unzip
@@ -209,7 +209,7 @@ def os_unzip(checksum, app_path, ext_path):
     append_scan_status(checksum, msg)
     try:
         if platform.system() == 'Windows':
-            msg = 'Unzipping Error. Not yet implemented in Windows'
+            msg = '正在解压缩 Error. Not yet implemented in Windows'
             logger.warning(msg)
             append_scan_status(checksum, msg)
             return []
@@ -231,7 +231,7 @@ def os_unzip(checksum, app_path, ext_path):
         files_det = ['Length   Date   Time   Name']
         return files_det + dat
     except Exception as exp:
-        msg = 'Unzipping Error with OS unzip utility'
+        msg = '正在解压缩 Error with OS unzip utility'
         logger.exception(msg)
         append_scan_status(checksum, msg, repr(exp))
     return []
@@ -464,7 +464,7 @@ def is_secret_key(key):
 
 def strings_and_entropies(checksum, src, exts):
     """Get Strings and Entropies."""
-    msg = 'Extracting String values and entropies from Code'
+    msg = '正在从代码提取字符串值和熵'
     logger.info(msg)
     append_scan_status(checksum, msg)
     data = {

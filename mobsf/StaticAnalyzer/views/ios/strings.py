@@ -23,7 +23,7 @@ def extract_urls_n_email(checksum, src, all_files, strings):
     url_n_file = []
     url_list = []
     try:
-        msg = 'Extracting URL and Email from IPA'
+        msg = '正在从 IPA 提取 URL 和邮箱'
         logger.info(msg)
         append_scan_status(checksum, msg)
         all_files.append({'data': strings, 'name': 'IPA Strings Dump'})
@@ -65,7 +65,7 @@ def extract_urls_n_email(checksum, src, all_files, strings):
 
 def get_strings_metadata(app_dict, bin_dict, all_files, dy_list):
     """Merge strings metadata."""
-    msg = 'Extracting String Metadata'
+    msg = '正在提取字符串元数据'
     logger.info(msg)
     append_scan_status(app_dict['md5_hash'], msg)
     # app_dict has secrets from plist secret analysis

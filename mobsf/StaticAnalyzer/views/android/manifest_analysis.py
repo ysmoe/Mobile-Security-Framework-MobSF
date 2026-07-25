@@ -215,7 +215,7 @@ def get_browsable_activities(node, ns):
         browse_dic['well_known'] = well_known
         return browse_dic
     except Exception:
-        logger.exception('Getting Browsable Activities')
+        logger.exception('正在获取可浏览的活动')
 
 
 def manifest_analysis(app_dic, man_data_dic):
@@ -227,7 +227,7 @@ def manifest_analysis(app_dic, man_data_dic):
     src_type = app_dic['zipped']
     app_dir = app_dic['app_dir']
     try:
-        msg = 'Manifest Analysis Started'
+        msg = '清单分析已开始'
         logger.info(msg)
         append_scan_status(checksum, msg)
         exp_count = dict.fromkeys(['act', 'ser', 'bro', 'cnt'], 0)
@@ -317,10 +317,10 @@ def manifest_analysis(app_dic, man_data_dic):
                     cnt_id = 'act'
                     an_or_a = 'n'
                 elif node.nodeName == 'provider':
-                    itemname = 'Content Provider'
+                    itemname = '内容提供者'
                     cnt_id = 'cnt'
                 elif node.nodeName == 'receiver':
-                    itemname = 'Broadcast Receiver'
+                    itemname = '广播接收器'
                     cnt_id = 'bro'
                 elif node.nodeName == 'service':
                     itemname = 'Service'
@@ -622,7 +622,7 @@ def manifest_analysis(app_dic, man_data_dic):
                                     # system's API level is below 17.
                         else:
                             if man_data_dic['min_sdk'] and man_data_dic['target_sdk'] and int(man_data_dic['min_sdk']) < ANDROID_4_2_LEVEL:
-                                if itemname == 'Content Provider' and int(man_data_dic['target_sdk']) < ANDROID_4_2_LEVEL:
+                                if itemname == '内容提供者' and int(man_data_dic['target_sdk']) < ANDROID_4_2_LEVEL:
                                     perm = ''
                                     item = node.getAttribute(f'{ns}:name')
                                     item = escape_manifest_attribute(item)
@@ -703,7 +703,7 @@ def manifest_analysis(app_dic, man_data_dic):
                                     # on the API version of the platform. If it was below 17, the content
                                     # provider would be exported by default.
                                 else:
-                                    if itemname == 'Content Provider' and int(man_data_dic['target_sdk']) >= 17:
+                                    if itemname == '内容提供者' and int(man_data_dic['target_sdk']) >= 17:
                                         perm = ''
                                         item = node.getAttribute(
                                             f'{ns}:name')
@@ -870,6 +870,6 @@ def manifest_analysis(app_dic, man_data_dic):
         }
         return man_an_dic
     except Exception as exp:
-        msg = 'Error Performing Manifest Analysis'
+        msg = '执行清单分析时出错'
         logger.exception(msg)
         append_scan_status(checksum, msg, repr(exp))

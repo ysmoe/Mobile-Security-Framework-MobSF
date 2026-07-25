@@ -108,7 +108,7 @@ def get_manifest_data(app_dic):
 
     # Manifest data extraction
     man_data_dic = extract_manifest_data(app_dic)
-    # Manifest Analysis
+    # 清单分析
     man_analysis = manifest_analysis(app_dic, man_data_dic)
     return man_data_dic, man_analysis
 
@@ -121,7 +121,7 @@ def print_scan_subject(app_dic, man_data):
     pkg_name2 = app_dic.get('apk_features', {}).get('package')
     if not pkg_name:
         pkg_name = pkg_name2
-    subject = 'Android App'
+    subject = 'Android 应用'
     if app_name and pkg_name:
         subject = f'{app_name} ({pkg_name})'
     elif pkg_name:
@@ -151,7 +151,7 @@ def apk_analysis_task(checksum, app_dic, rescan, queue=False):
             mark_task_started(checksum)
         append_scan_status(checksum, 'init')
         get_size_and_hashes(app_dic)
-        msg = 'Extracting APK'
+        msg = '正在解压 APK'
         logger.info(msg)
         append_scan_status(checksum, msg)
         app_dic['zipped'] = 'apk'
@@ -269,7 +269,7 @@ def apk_analysis(request, app_dic, rescan, api):
     else:
         # APK Analysis
         if not has_permission(request, Permissions.SCAN, api):
-            return print_n_send_error_response(request, 'Permission Denied', False)
+            return print_n_send_error_response(request, '权限被拒绝', False)
         if settings.ASYNC_ANALYSIS:
             return async_analysis(
                 checksum,
@@ -387,7 +387,7 @@ def src_analysis(request, app_dic, rescan, api):
         # Initialize for both Android and iOS Source Analysis
         append_scan_status(checksum, 'init')
         get_size_and_hashes(app_dic)
-        msg = 'Extracting ZIP'
+        msg = '正在解压 ZIP'
         logger.info(msg)
         append_scan_status(checksum, msg)
         app_dic['files'] = unzip(
@@ -412,7 +412,7 @@ def src_analysis(request, app_dic, rescan, api):
         if not has_permission(request, Permissions.SCAN, api):
             return print_n_send_error_response(
                 request,
-                'Permission Denied',
+                '权限被拒绝',
                 False)
         if valid and (pro_type in ['eclipse', 'studio']):
             if settings.ASYNC_ANALYSIS:

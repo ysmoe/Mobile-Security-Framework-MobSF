@@ -204,7 +204,7 @@ def check_transport_security(p_list):
                                   ' set to NO for {}'.format(domain)),
                         'severity': 'warning',
                         'description': (
-                            'Certificate Transparency (CT) is a protocol '
+                            '证书透明度 (CT) 是一个'
                             'that ATS can use to identify '
                             'mistakenly or maliciously '
                             'issued X.509 certificates. '
@@ -223,7 +223,7 @@ def check_transport_security(p_list):
                                   ' set to YES for {}'.format(domain)),
                         'severity': 'secure',
                         'description': (
-                            'Certificate Transparency (CT) is a protocol '
+                            '证书透明度 (CT) 是一个'
                             'that ATS can use to identify '
                             'mistakenly or maliciously '
                             'issued X.509 certificates. '

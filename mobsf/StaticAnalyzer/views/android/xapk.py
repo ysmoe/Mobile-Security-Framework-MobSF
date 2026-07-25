@@ -30,13 +30,13 @@ def handle_xapk(app_dic):
         xapk.as_posix(),
         app_dic['app_dir'])
     if 'manifest.json' not in files:
-        logger.error('Manifest file not found in XAPK')
+        logger.error('在 XAPK 中未找到清单文件')
         return False
     manifest = app_dic['app_dir'] / 'manifest.json'
     with open(manifest, encoding='utf8', errors='ignore') as f:
         data = load(f)
     if not data:
-        logger.error('Manifest file is empty')
+        logger.error('清单文件为空')
         return False
     apks = data.get('split_apks')
     if not apks:

@@ -98,7 +98,7 @@ def ios_source_analysis(checksum, src):
         append_scan_status(checksum, msg)
 
         # Extract URLs and Emails
-        msg = 'Extracting Emails and URLs from Source Code'
+        msg = '正在从源代码中提取邮箱和 URL'
         logger.info(msg)
         append_scan_status(checksum, msg)
         for pfile in Path(src).rglob('*'):
@@ -120,7 +120,7 @@ def ios_source_analysis(checksum, src):
                 url_list.extend(urls)
                 url_n_file.extend(urls_nf)
                 email_n_file.extend(emails_nf)
-        msg = 'Email and URL Extraction Completed'
+        msg = '邮箱和 URL 提取已完成'
         logger.info(msg)
         append_scan_status(checksum, msg)
         if not source_types:

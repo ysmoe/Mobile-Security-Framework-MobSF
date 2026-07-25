@@ -48,7 +48,7 @@ def get_hardcoded_cert_keystore(app_dic):
     checksum = app_dic['md5']
     try:
         files = app_dic.get('files') or app_dic.get('apk_files')
-        msg = 'Getting Hardcoded Certificates/Keystores'
+        msg = '正在获取硬编码的证书/密钥库'
         logger.info(msg)
         append_scan_status(checksum, msg)
         findings = []
@@ -73,7 +73,7 @@ def get_hardcoded_cert_keystore(app_dic):
             findings.append({'finding': desc, 'files': key_store})
         app_dic['file_analysis'] = findings
     except Exception as exp:
-        msg = 'Getting Hardcoded Certificates/Keystores'
+        msg = '正在获取硬编码的证书/密钥库'
         append_scan_status(checksum, msg, repr(exp))
         logger.exception(msg)
 
@@ -139,7 +139,7 @@ def get_signature_versions(checksum, app_path, tools_dir, signed):
     try:
         if not signed:
             return v1, v2, v3, v4
-        logger.info('Getting Signature Versions')
+        logger.info('正在获取签名版本')
         apksigner = Path(tools_dir) / 'apksigner.jar'
         args = [find_java_binary(), '-Xmx1024M',
                 '-Djava.library.path=', '-jar',
@@ -300,7 +300,7 @@ def get_cert_data(checksum, a, app_path, tools_dir):
 def cert_info(app_dic, man_dict):
     """Return certificate information."""
     try:
-        msg = 'Reading Code Signing Certificate'
+        msg = '正在读取代码签名证书'
         logger.info(msg)
         append_scan_status(app_dic['md5'], msg)
         a = app_dic.get('androguard_apk')
@@ -339,7 +339,7 @@ def cert_info(app_dic, man_dict):
                 INFO,
                 'Application is signed with a code '
                 'signing certificate',
-                'Signed Application'))
+                '已签名应用'))
         else:
             summary[HIGH] += 1
             findings.append((
@@ -395,7 +395,7 @@ def cert_info(app_dic, man_dict):
                 desc += (
                     ' The manifest file indicates SHA256withRSA'
                     ' is in use.')
-                title = ('Certificate algorithm might be '
+                title = ('证书算法可能 '
                          'vulnerable to hash collision')
             findings.append((status, desc, title))
         if re.findall(r'Hash Algorithm: md5', cert_data['cert_data']):
@@ -413,7 +413,7 @@ def cert_info(app_dic, man_dict):
             'certificate_summary': summary,
         }
     except Exception as exp:
-        msg = 'Reading Code Signing Certificate'
+        msg = '正在读取代码签名证书'
         logger.exception(msg)
         append_scan_status(app_dic['md5'], msg, repr(exp))
         return {}

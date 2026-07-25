@@ -212,7 +212,7 @@ def plist_analysis(checksum, src, scan_type):
         }
         return plist_info
     except Exception as exp:
-        msg = 'Reading from Info.plist'
+        msg = '正在读取 Info.plist'
         logger.exception(msg)
         append_scan_status(checksum, msg, repr(exp))
 

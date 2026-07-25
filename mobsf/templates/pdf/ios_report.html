@@ -66,7 +66,7 @@
         <td class="no_border"><h3>{{file_name}}</h3></td>
       </tr>
       <tr>
-        <td class="no_border"><h3>Identifier:</h3></td>
+        <td class="no_border"><h3>标识符：</h3></td>
         <td class="no_border"><h3>{{ bundle_id }}</h3></td>
       </tr>
       <tr>
@@ -176,31 +176,31 @@
       <h2><i class="fas fa-box-open"></i> 文件信息</h2>
 
       <h5>文件名：</h5> {{ file_name }}</br>
-      <h5>大小: </h5> {{ size }}</br>
-      <h5>MD5:</h5> {{ md5 }}</br>
-      <h5>SHA1:</h5> {{ sha1 }}</br>
-      <h5>SHA256:</h5> {{ sha256 }}</br>
+      <h5>大小： </h5> {{ size }}</br>
+      <h5>MD5：</h5> {{ md5 }}</br>
+      <h5>SHA1：</h5> {{ sha1 }}</br>
+      <h5>SHA256：</h5> {{ sha256 }}</br>
      
 {% if app_type not in 'Dylib,A' %}
       <h2><i class="fas fa-info"></i> 应用信息</h2>
 
-      <h5>App Name:</h5> {{ app_name }}</br>
-      <h5>App Type:</h5> {{ app_type }}</br>
-      <h5>Identifier:</h5> {{ bundle_id }}</br>
-      <h5>SDK Name:</h5> {{ sdk_name }}</br>
-      <h5>Version:</h5> {{ app_version }}</br>
-      <h5>Build:</h5> {{ build }}</br>
-      <h5>Platform Version:</h5> {{ platform }}</br>
-      <h5>Min 操作系统版本:</h5> {{ min_os_version }}</br>
-      <h5>Supported Platforms:</h5> {% for pl in bundle_supported_platforms %} {{pl}}, {% endfor %}</br>
+      <h5>应用名称：</h5> {{ app_name }}</br>
+      <h5>应用类型：</h5> {{ app_type }}</br>
+      <h5>标识符：</h5> {{ bundle_id }}</br>
+      <h5>SDK 名称：</h5> {{ sdk_name }}</br>
+      <h5>版本：</h5> {{ app_version }}</br>
+      <h5>构建版本：</h5> {{ build }}</br>
+      <h5>Platform 版本：</h5> {{ platform }}</br>
+      <h5>最低系统版本：</h5> {{ min_os_version }}</br>
+      <h5>支持的平台：</h5> {% for pl in bundle_supported_platforms %} {{pl}}, {% endfor %}</br>
 {% endif %}
      {% if binary_info %}
       <h2><i class="fas fa-ad"></i> BINARY 信息RMATION </h2>
 
-      <h5>Arch:</h5> {{ binary_info.arch }}</br>
-      <h5>Sub Arch:</h5> {{ binary_info.subarch }}</br>
-      <h5>Bit:</h5> {{ binary_info.bit }}</br>
-      <h5>Endian:</h5> {{ binary_info.endian }}</br>
+      <h5>架构：</h5> {{ binary_info.arch }}</br>
+      <h5>Sub 架构：</h5> {{ binary_info.subarch }}</br>
+      <h5>位数：</h5> {{ binary_info.bit }}</br>
+      <h5>字节序：</h5> {{ binary_info.endian }}</br>
       
      {% endif %}
 
@@ -427,7 +427,7 @@
                       </td>
                       <td>
                         {% if average_cvss %}
-                          <h5>CVSS V2:</h5>
+                          <h5>CVSS V2：</h5>
                           {% if details|key:"cvss" > 6 %}
                           <span class="danger">{{ details|key:"cvss" }} (high)</span>
                           {% elif details|key:"cvss" == 0 %}
@@ -439,9 +439,9 @@
                           {% endif %}
                           </br>
                         {% endif %}
-                        {% if details|key:"cwe" %}<h5>CWE: </h5>{{ details|key:"cwe" }}{% endif %}
-                        {% if details|key:"owasp-mobile" %}</br> <h5>OWASP Top 10: </h5>{{ details|key:"owasp-mobile" }}{% endif %}
-                        {% if details|key:"masvs" %}</br> <h5>OWASP MASVS: </h5>{{ details|key:"masvs" }}{% endif %}
+                        {% if details|key:"cwe" %}<h5>CWE： </h5>{{ details|key:"cwe" }}{% endif %}
+                        {% if details|key:"owasp-mobile" %}</br> <h5>OWASP Top 10： </h5>{{ details|key:"owasp-mobile" }}{% endif %}
+                        {% if details|key:"masvs" %}</br> <h5>OWASP MASVS： </h5>{{ details|key:"masvs" }}{% endif %}
                        </td>
                       <td>
                         {{ details|key:"detailed_desc" }}
@@ -767,7 +767,7 @@
                   </td>
                   <td>
                     {% if average_cvss %}
-                      <h5>CVSS V2:</h5>
+                      <h5>CVSS V2：</h5>
                       {% if details.metadata.cvss > 6 %}
                       <span class="danger">{{ details.metadata.cvss }} (high)</span>
                       {% elif details.metadata.cvss == 0 %}
@@ -779,9 +779,9 @@
                       {% endif %}
                       </br>
                     {% endif %}
-                    {% if details.metadata.cwe %}<strong>CWE: </strong>{{details.metadata.cwe }}{% endif %}
-                    {% if details.metadata|key:"owasp-mobile" %}</br> <strong>OWASP Top 10: </strong>{{ details.metadata|key:"owasp-mobile" }}{% endif %}
-                    {% if details.metadata.masvs %}</br> <strong>OWASP MASVS: </strong>{{ details.metadata.masvs  }}{% endif %}
+                    {% if details.metadata.cwe %}<strong>CWE： </strong>{{details.metadata.cwe }}{% endif %}
+                    {% if details.metadata|key:"owasp-mobile" %}</br> <strong>OWASP Top 10： </strong>{{ details.metadata|key:"owasp-mobile" }}{% endif %}
+                    {% if details.metadata.masvs %}</br> <strong>OWASP MASVS： </strong>{{ details.metadata.masvs  }}{% endif %}
                   </td>
                   <td style="word-break:break-all;">
                   {% for file_path in details.files %}
@@ -844,7 +844,7 @@
           {% if details|key:"ofac" == True %}
            <tr><td>{{domain}}</td>
            <td>
-             <strong>IP：</strong>{{details|key:"geolocation"|key:"ip"}}  <br/>
+             <strong>IP 地址：</strong>{{details|key:"geolocation"|key:"ip"}}  <br/>
              <strong>国家：</strong>{{details|key:"geolocation"|key:"country_long"}} <br/>
              <strong>地区：</strong>{{details|key:"geolocation"|key:"region"}} <br/>
              <strong>城市：</strong>{{details|key:"geolocation"|key:"city"}} <br/>
@@ -871,9 +871,9 @@
                     {% if details|key:"bad" == "yes" %}
                     <span class="danger">malware</span><br/>
              
-                      <h5>URL: </h5> {{details|key:"domain_or_url"}}
-                      <h5>IP：</h5> <span class="danger">{{details|key:"ip"}}</span>
-                      <h5>描述: </h5> {{details|key:"desc"}}
+                      <h5>URL： </h5> {{details|key:"domain_or_url"}}
+                      <h5>IP 地址：</h5> <span class="danger">{{details|key:"ip"}}</span>
+                      <h5>描述： </h5> {{details|key:"desc"}}
                    
                   {% else %}
                     <span class="success">ok</span><br/>
@@ -882,13 +882,13 @@
                   <td>
                     {% if details|key:"geolocation" %}
                 
-                      <h5>IP：</h5> {{details|key:"geolocation"|key:"ip"}}  <br/>
+                      <h5>IP 地址：</h5> {{details|key:"geolocation"|key:"ip"}}  <br/>
                       <h5>国家：</h5> {{details|key:"geolocation"|key:"country_long"}} <br/>
                       <h5>地区：</h5> {{details|key:"geolocation"|key:"region"}} <br/>
                       <h5>城市：</h5> {{details|key:"geolocation"|key:"city"}} <br/>
-                      <h5>Latitude: </h5> {{details|key:"geolocation"|key:"latitude"}} <br/>
-                      <h5>Longitude: </h5> {{details|key:"geolocation"|key:"longitude"}} <br/>
-                      <h5>查看: </h5> <a target="_blank" href="http://maps.google.com/maps?q={{details|key:"geolocation"|key:"latitude"}},{{details|key:"geolocation"|key:"longitude"}}">Google Map</a>
+                      <h5>纬度： </h5> {{details|key:"geolocation"|key:"latitude"}} <br/>
+                      <h5>经度： </h5> {{details|key:"geolocation"|key:"longitude"}} <br/>
+                      <h5>查看： </h5> <a target="_blank" href="http://maps.google.com/maps?q={{details|key:"geolocation"|key:"latitude"}},{{details|key:"geolocation"|key:"longitude"}}">Google Map</a>
                     {% else %}
                     No Geolocation information available.
                     {% endif %}
@@ -1024,47 +1024,47 @@
     <h2><i class="fab fa-app-store-ios"></i> APP STORE 信息RMATION </h2>
 
                   <p>                                       
-                    <h5>Title:</h5> 
+                    <h5>标题：</h5> 
                     {{ appstore_details.title }}
                   </p>
                   <p>                                       
-                    <h5>Score:</h5> 
+                    <h5>评分：</h5> 
                    {{ appstore_details.score}}
 
-                   <h5>Features:</h5> 
+                   <h5>特性：</h5> 
                     {% for fea in appstore_details.features %}
                       {{ fea }}, 
                     {% endfor %}
 
-                   <h5>Price:</h5> 
+                   <h5>价格：</h5> 
                       {{ appstore_details.price }}
 
-                   <h5>类别:</h5> 
+                   <h5>类别：</h5> 
                      {% for cat in appstore_details.category %}
                         {{ cat }}, 
                     {% endfor %}
                    </br>
-                    <h5>App Store URL:</h5> 
+                    <h5>App Store 链接：</h5> 
 		                <a target="_blank" href="{{ appstore_details.itunes_url }}" rel="noopener noreferrer">{{ appstore_details.app_id }} </a>
                 
                   </p>
 		          <p>
-                  <h5>Developer:</h5> 
+                  <h5>开发者：</h5> 
                     {{appstore_details.developer}}  <br/>
-		          <h5>Developer ID:</h5> 
+		          <h5>开发者 ID：</h5> 
                    {{appstore_details.developer_id}}  <br/>
-                   <h5>Developer Website:</h5> 
+                   <h5>开发者网站：</h5> 
                    {{appstore_details.developer_website }} <br/>
-                   <h5>Developer URL:</h5> 
+                   <h5>开发者链接：</h5> 
                    {{appstore_details.developer_url}} <br/>
-                   <h5>Supported 设备s</h5>
+                   <h5>支持的设备</h5>
                    {% for dev in appstore_details.supported_devices %}
                       {{ dev }}, 
                       {% endfor %}
                     <br/>              
 		            </p>
                  <p>                                     
-                    <h5>描述:</h5> 
+                    <h5>描述：</h5> 
                     <p>{{ appstore_details.description }}</p>
                   </p>
        {% endif %}
@@ -1104,7 +1104,7 @@
     <article id="columns">
       </br>
       <hr>
-      <h3>Report Generated by - MobSF {{ version }} </h3>
+      <h3>报告由 MobSF 生成 {{ version }} </h3>
       <section>
         <p>
           Mobile Security Framework (MobSF) is an automated, all-in-one mobile application (Android/iOS/Windows) pen-testing, malware analysis and security assessment framework capable of performing static and dynamic analysis.

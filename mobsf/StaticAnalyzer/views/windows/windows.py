@@ -145,7 +145,7 @@ def staticanalyzer_windows(request, checksum, api=False):
             # Saving to db
             logger.info('Connecting to DB')
             if rescan:
-                logger.info('Updating Database...')
+                logger.info('正在更新数据库...')
                 save_or_update('update',
                                app_dic,
                                xml_dic,

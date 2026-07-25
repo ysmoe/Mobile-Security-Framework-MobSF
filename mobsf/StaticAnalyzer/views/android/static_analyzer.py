@@ -83,7 +83,7 @@ def static_analyzer(request, checksum, api=False):
         app_dic['dir'] = Path(settings.BASE_DIR)  # BASE DIR
         app_dic['app_name'] = filename  # APP ORIGINAL NAME
         app_dic['md5'] = checksum  # MD5
-        msg = f'Scan Hash: {checksum}'
+        msg = f'扫描哈希: {checksum}'
         logger.info(msg)
         # APP DIRECTORY
         app_dic['app_dir'] = Path(settings.UPLD_DIR) / checksum

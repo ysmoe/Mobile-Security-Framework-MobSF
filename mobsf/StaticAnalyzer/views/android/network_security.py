@@ -229,7 +229,7 @@ def analysis(checksum, app_dir, config, is_debuggable, src_type):
                     finds.append({
                         'scope': domain_list,
                         'description': (
-                            'Certificate pinning expires '
+                            '证书绑定过期'
                             f'on {exp}. After this date '
                             'pinning will be disabled. '
                             f'[{pins_list}]'),
@@ -240,7 +240,7 @@ def analysis(checksum, app_dir, config, is_debuggable, src_type):
                     finds.append({
                         'scope': domain_list,
                         'description': (
-                            'Certificate pinning does '
+                            '证书绑定不'
                             'not have an expiry. Ensure '
                             'that pins are updated before '
                             'certificate expire. '
@@ -289,7 +289,7 @@ def analysis(checksum, app_dir, config, is_debuggable, src_type):
         netsec['network_findings'] = finds
         netsec['network_summary'] = summary
     except Exception as exp:
-        msg = 'Performing Network Security Analysis'
+        msg = '正在执行网络安全分析'
         logger.exception(msg)
         append_scan_status(checksum, msg, repr(exp))
     return netsec

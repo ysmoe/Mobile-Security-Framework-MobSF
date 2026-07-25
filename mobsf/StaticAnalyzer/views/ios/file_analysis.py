@@ -88,7 +88,7 @@ def ios_list_files(md5_hash, src, mode):
             })
         if certz:
             sfiles.append({
-                'issue': 'Certificate/Key Files Hardcoded inside the App.',
+                'issue': '证书/密钥文件硬编码在应用内',
                 'files': certz,
             })
 

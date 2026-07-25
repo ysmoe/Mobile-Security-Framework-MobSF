@@ -182,7 +182,7 @@
 
       <h5>应用名称：</h5> {{ app_name }}</br>
       <h5>包名：</h5> {{ package_name }}</br>
-      <h5>主 Activity：</h5> {{ main_activity }}</br>
+      <h5>主 活动：</h5> {{ main_activity }}</br>
       <h5>目标 SDK：</h5> {{ target_sdk }}</br>
       <h5>最低 SDK：</h5> {{ min_sdk }}</br>
       <h5>最高 SDK：</h5> {{ max_sdk }}</br>
@@ -193,11 +193,11 @@
 {% if app_type not in 'jar,aar,so' %}
       <h2><i class="fas fa-th-large"></i> 应用组件</h2>
 
-        <h5>Activity：</h5> {{ activities | length }}</br>
+        <h5>活动：</h5> {{ activities | length }}</br>
         <h5>服务：</h5> {{ services | length }}</br>
         <h5>接收器：</h5> {{ receivers | length }}</br>
         <h5>提供器：</h5> {{ providers | length }}</br>
-        <h5>导出的 Activity：</h5> <span {% if exported_count.exported_activities > 0 %} class="danger" {% endif %}> {{ exported_count.exported_activities }}</span></br>
+        <h5>导出的 活动：</h5> <span {% if exported_count.exported_activities > 0 %} class="danger" {% endif %}> {{ exported_count.exported_activities }}</span></br>
         <h5>导出的服务：</h5> <span {% if exported_count.exported_services > 0 %} class="danger" {% endif %}> {{ exported_count.exported_services }}</span></br>
         <h5>导出的接收器：</h5> <span {% if exported_count.exported_receivers > 0 %} class="danger" {% endif %}> {{ exported_count.exported_receivers }}</span></br>
         <h5>导出的提供器：</h5> <span {% if exported_count.exported_providers > 0 %} class="danger" {% endif %}> {{ exported_count.exported_providers }}</span></br>
@@ -843,7 +843,7 @@
           {% if details|key:"ofac" == True %}
            <tr><td>{{domain}}</td>
            <td>
-             <strong>IP：</strong>{{details|key:"geolocation"|key:"ip"}}  <br/>
+             <strong>IP 地址：</strong>{{details|key:"geolocation"|key:"ip"}}  <br/>
              <strong>国家：</strong>{{details|key:"geolocation"|key:"country_long"}} <br/>
              <strong>地区：</strong>{{details|key:"geolocation"|key:"region"}} <br/>
              <strong>城市：</strong>{{details|key:"geolocation"|key:"city"}} <br/>
@@ -871,7 +871,7 @@
                     <span class="danger">恶意软件</span><br/>
             
                       <h5>URL：</h5> {{details|key:"domain_or_url"}}
-                      <h5>IP：</h5> <span class="danger">{{details|key:"ip"}}</span>
+                      <h5>IP 地址：</h5> <span class="danger">{{details|key:"ip"}}</span>
                       <h5>描述：</h5> {{details|key:"desc"}}
                    
                   {% else %}
@@ -881,7 +881,7 @@
                   <td>
                     {% if details|key:"geolocation" %}
                 
-                      <h5>IP：</h5> {{details|key:"geolocation"|key:"ip"}}  <br/>
+                      <h5>IP 地址：</h5> {{details|key:"geolocation"|key:"ip"}}  <br/>
                       <h5>国家：</h5> {{details|key:"geolocation"|key:"country_long"}} <br/>
                       <h5>地区：</h5> {{details|key:"geolocation"|key:"region"}} <br/>
                       <h5>城市：</h5> {{details|key:"geolocation"|key:"city"}} <br/>

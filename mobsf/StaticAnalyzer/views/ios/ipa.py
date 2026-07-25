@@ -86,7 +86,7 @@ def get_size_and_hashes(app_dic):
 def extract_and_check_ipa(checksum, app_dic):
     """Extract and Check IPA."""
     # EXTRACT IPA
-    msg = 'Extracting IPA'
+    msg = '正在解压 IPA'
     logger.info(msg)
     append_scan_status(checksum, msg)
     unzip(

@@ -110,7 +110,7 @@ def get_fallback():
 
 def bs4_xml_parser(xml_str):
     """Attempt to parse XML with bs4."""
-    logger.info('Parsing AndroidManifest.xml with bs4')
+    logger.info('正在解析 AndroidManifest.xml with bs4')
     try:
         soup = BeautifulSoup(xml_str, 'xml')
         return soup.prettify().encode('utf-8', 'ignore')
@@ -135,7 +135,7 @@ def get_parsed_manifest(app_dic):
             return
 
         app_dic['manifest_file'] = manifest_file
-        msg = 'Parsing AndroidManifest.xml'
+        msg = '正在解析 AndroidManifest.xml'
         logger.info(msg)
         append_scan_status(checksum, msg)
 
@@ -162,7 +162,7 @@ def get_parsed_manifest(app_dic):
             app_dic['manifest_parsed_xml'] = parsed_xml
             return
         except Exception as exp:
-            msg = 'Parsing AndroidManifest.xml using all methods'
+            msg = '正在解析 AndroidManifest.xml using all methods'
             logger.exception(msg)
             append_scan_status(checksum, msg, repr(exp))
 
@@ -176,7 +176,7 @@ def extract_manifest_data(app_dic):
     try:
         mfxml = app_dic['manifest_parsed_xml']
         ns = app_dic['manifest_namespace']
-        msg = 'Extracting Manifest Data'
+        msg = '正在提取清单数据'
         logger.info(msg)
         append_scan_status(checksum, msg)
         svc = []
@@ -325,6 +325,6 @@ def extract_manifest_data(app_dic):
 
         return man_data_dic
     except Exception as exp:
-        msg = 'Extracting Manifest Data'
+        msg = '正在提取清单数据'
         logger.exception(msg)
         append_scan_status(checksum, msg, repr(exp))
