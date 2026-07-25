@@ -41,6 +41,7 @@ from mobsf.StaticAnalyzer import tests
 from mobsf.StaticAnalyzer.views.common import (
     appsec,
     async_task,
+    docx,
     pdf,
     shared_func,
     suppression,
@@ -272,6 +273,7 @@ if settings.API_ONLY == '0':
                 name='static_analyzer_windows'),
         # Shared
         re_path(fr'^pdf/{checksum_regex}/$', pdf.pdf, name='pdf'),
+        re_path(fr'^download_docx/{checksum_regex}/$', docx.docx, name='download_docx'),
         re_path(fr'^appsec_dashboard/{checksum_regex}/$',
                 appsec.appsec_dashboard,
                 name='appsec_dashboard'),

@@ -6,7 +6,11 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends fonts-noto-cjk && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install python-docx + lxml for DOCX report generation
+RUN pip install --no-cache-dir 'python-docx>=1.1.0' 'lxml>=4.9.0'
+
 # Copy our Chinese localization files (only the mobsf/ directory for the application code)
 COPY mobsf/ /home/mobsf/Mobile-Security-Framework-MobSF/mobsf/
+RUN chown -R mobsf:mobsf /home/mobsf/Mobile-Security-Framework-MobSF/mobsf/
 
 USER mobsf
